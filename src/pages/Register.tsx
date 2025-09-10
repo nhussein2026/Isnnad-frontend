@@ -22,35 +22,63 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-sky-200 via-purple-200 to-pink-200">
       <Toaster />
-      <form onSubmit={submit} className="bg-white p-6 rounded shadow w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">Register</h2>
+      <form
+        onSubmit={submit}
+        className="relative bg-white rounded-3xl shadow-2xl w-1/2 max-w-md p-8
+                   backdrop-blur-md bg-opacity-80 animate-fadeIn scale-up"
+      >
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
 
-        <input required placeholder="Name" value={form.name}
-            onChange={(e)=>setForm({...form, name:e.target.value})}
-            className="mb-2 block w-full border rounded px-3 py-2" />
+        <input
+          required
+          placeholder="Name"
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          className="mb-4 w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sky-400 focus:outline-none transition"
+        />
 
-        <input required type="email" placeholder="Email" value={form.email}
-            onChange={(e)=>setForm({...form, email:e.target.value})}
-            className="mb-2 block w-full border rounded px-3 py-2" />
+        <input
+          required
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          className="mb-4 w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sky-400 focus:outline-none transition"
+        />
 
-        <input required placeholder="Phone" value={form.phone}
-            onChange={(e)=>setForm({...form, phone:e.target.value})}
-            className="mb-2 block w-full border rounded px-3 py-2" />
+        <input
+          required
+          placeholder="Phone"
+          value={form.phone}
+          onChange={(e) => setForm({ ...form, phone: e.target.value })}
+          className="mb-4 w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sky-400 focus:outline-none transition"
+        />
 
-        <input required type="password" placeholder="Password" value={form.password}
-            onChange={(e)=>setForm({...form, password:e.target.value})}
-            className="mb-4 block w-full border rounded px-3 py-2" />
+        <input
+          required
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          className="mb-6 w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-sky-400 focus:outline-none transition"
+        />
 
-        {error && <div className="text-red-600 mb-2">{error}</div>}
+        {error && <div className="text-red-600 mb-4 text-center">{error}</div>}
 
-        <button disabled={loading} className="w-full bg-sky-600 text-white py-2 rounded">
+        <button
+          disabled={loading}
+          className="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105"
+        >
           {loading ? "Creating..." : "Register"}
         </button>
 
-        <p className="mt-3 text-sm">
-          Already have account? <Link to="/login" className="text-sky-600">Login</Link>
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link to="/login" className="text-sky-600 font-medium hover:underline">
+            Login
+          </Link>
         </p>
       </form>
     </div>

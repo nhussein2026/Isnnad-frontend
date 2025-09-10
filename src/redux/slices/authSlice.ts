@@ -22,7 +22,7 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async (credentials: { email: string; password: string }, thunkAPI) => {
     try {
-      const res = await api.post("/login", credentials);
+      const res = await api.post("/auth/login", credentials);
       const token: string = res.data.token;
       const user: IUser = res.data.user;
       saveAuth(token, user);
@@ -41,7 +41,7 @@ export const registerUser = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const res = await api.post("/register", payload);
+      const res = await api.post("/auth/register", payload);
       // backend returns created user; we won't auto-login here
       return res.data.user ?? res.data;
     } catch (err: any) {
