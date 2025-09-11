@@ -40,6 +40,9 @@ export default function Navbar() {
               <NavLink to="/dashboard" className="flex items-center gap-2 px-3 py-1 border rounded">
                 <User size={16} /> Dashboard
               </NavLink>
+              <NavLink to="/profile" className="flex items-center gap-2 px-3 py-1 border rounded">
+                <User size={16} /> my profile
+              </NavLink>
               <button onClick={onLogout} className="ml-2 px-3 py-1 rounded border">
                 <LogOut size={16} /> Logout
               </button>

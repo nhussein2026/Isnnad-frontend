@@ -1,5 +1,5 @@
 {
-   "compilerOptions": {
+  "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "react",
 
     /* Linting */
     "strict": true,
@@ -31,6 +32,5 @@
     "types/**/*",
     "src/types/**/*"
   ],
-  
   "references": [{ "path": "./tsconfig.node.json" }]
 }

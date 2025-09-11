@@ -1,9 +1,15 @@
 export interface IUser {
-  id: string;
   name: string;
   email: string;
-  username?: string;
-  phone?: string;
-  role?: string;
-  // other safe fields returned by backend
+  phone: string;
+  username: string;
+  password: string;
+  referralCode?: string;
+  referredBy?: string | mongoose.Types.ObjectId | null;
+  subjects: mongoose.Types.ObjectId[];
+  role: "student" | "admin";
+  isEmailVerified: boolean;
+  isPhoneVerified: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
