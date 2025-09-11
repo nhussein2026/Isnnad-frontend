@@ -9,7 +9,6 @@ import {
   Mail,
   Phone,
   Calendar,
-  Globe,
   Bell,
   Shield,
   AtSign,
@@ -23,7 +22,7 @@ export default function UserProfile() {
   const [updating, setUpdating] = useState(false);
   
   // Local settings state
-  const [notifications, setNotifications] = useState(true);
+  // const [notifications, setNotifications] = useState(true);
   
   // Password change state
   const [passwords, setPasswords] = useState({
@@ -41,7 +40,7 @@ export default function UserProfile() {
         setUser(data);
         console.log("User state updated:", data);
         // Set initial settings from user data if available
-        if (data.notifications !== undefined) setNotifications(data.notifications);
+        // if (data.notifications !== undefined) setNotifications(data.notifications);
         
       } catch (err: any) {
         console.error("❌ Failed to fetch user:", err.response?.data || err.message);
@@ -57,7 +56,7 @@ export default function UserProfile() {
   const handleSaveSettings = async () => {
     setUpdating(true);
     try {
-      await api.put("/user/settings", { language, notifications });
+      // await api.put("/user/settings", { language, notifications });
       toast.success("Settings updated successfully!");
     } catch (err: any) {
       console.error("Failed to update settings:", err);
@@ -199,16 +198,16 @@ export default function UserProfile() {
           <div className="flex items-center gap-3">
             <input
               type="checkbox"
-              checked={notifications}
-              onChange={(e) => setNotifications(e.target.checked)}
-              id="notifications"
+              // checked={notifications}
+              // onChange={(e) => setNotifications(e.target.checked)}
+              // id="notifications"
               className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               disabled={updating}
             />
-            <Label htmlFor="notifications" className="flex items-center gap-2 font-medium cursor-pointer">
+            {/* <Label htmlFor="notifications" className="flex items-center gap-2 font-medium cursor-pointer">
               <Bell size={18} className="text-gray-600" /> 
               Enable Notifications
-            </Label>
+            </Label> */}
           </div>
 
           <Button 
