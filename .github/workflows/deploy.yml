@@ -11,6 +11,6 @@ jobs:
     steps:
       - name: Trigger Vercel Deploy Hook
         run: |
-          curl -X POST "$VERCEL_DEPLOY_HOOK_URL"
+          curl -X POST "$ISNNAD_VERCEL_DEPLOY_HOOK_URL"
         env:
-          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+          ISNNAD_VERCEL_DEPLOY_HOOK_URL: ${{ secrets.ISNNAD_VERCEL_DEPLOY_HOOK_URL }}
