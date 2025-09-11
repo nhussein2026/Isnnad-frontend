@@ -9,7 +9,7 @@ import {
   Mail,
   Phone,
   Calendar,
-  Bell,
+  // Bell,
   Shield,
   AtSign,
 } from "lucide-react";

@@ -5,8 +5,8 @@ export interface IUser {
   username: string;
   password: string;
   referralCode?: string;
-  referredBy?: string | mongoose.Types.ObjectId | null;
-  subjects: mongoose.Types.ObjectId[];
+  referredBy?: string;
+  subjects: object[];
   role: "student" | "admin";
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
