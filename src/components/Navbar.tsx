@@ -1,54 +1,58 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "../redux/store";
-import { logout } from "../redux/slices/authSlice";
-import { LogIn, User, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import { Menu, User, ShoppingCart } from "lucide-react";
+import { useState } from "react";
 
 export default function Navbar() {
-  const { user } = useSelector((s: RootState) => s.auth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const onLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="text-lg font-semibold">
-          <NavLink to="/">Isnnad</NavLink>
-        </div>
+    <header className="w-full border-b bg-white shadow-sm">
+      <div className="container mx-auto flex items-center justify-between px-4 py-3">
+        {/* Logo */}
+        <Link to="/" className="text-2xl font-bold text-primary">
+          TaskSolver
+        </Link>
 
-        <nav className="flex items-center gap-4">
-          <NavLink to="/#about" className="hover:underline">About</NavLink>
-          <NavLink to="/#contact" className="hover:underline">Contact</NavLink>
-
-          {!user ? (
-            <>
-              <NavLink to="/login" className="flex items-center gap-2 px-3 py-1 border rounded">
-                <LogIn size={16} /> Login
-              </NavLink>
-              <NavLink to="/register" className="ml-2 px-3 py-1 rounded bg-sky-600 text-white">
-                Register
-              </NavLink>
-            </>
-          ) : (
-            <>
-              <NavLink to="/dashboard" className="flex items-center gap-2 px-3 py-1 border rounded">
-                <User size={16} /> Dashboard
-              </NavLink>
-              <NavLink to="/profile" className="flex items-center gap-2 px-3 py-1 border rounded">
-                <User size={16} /> my profile
-              </NavLink>
-              <button onClick={onLogout} className="ml-2 px-3 py-1 rounded border">
-                <LogOut size={16} /> Logout
-              </button>
-            </>
-          )}
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex items-center gap-6">
+          <Link to="/" className="text-gray-700 hover:text-primary">الرئيسية</Link>
+          <Link to="/offers" className="text-gray-700 hover:text-primary">العروض</Link>
+          <Link to="/support" className="text-gray-700 hover:text-primary">الدعم</Link>
         </nav>
+
+        {/* Icons */}
+        <div className="flex items-center gap-4">
+          <Link to="/dashboard" className="text-gray-700 hover:text-primary">
+            <User className="h-5 w-5" />
+          </Link>
+          <Link to="/checkout" className="text-gray-700 hover:text-primary">
+            <ShoppingCart className="h-5 w-5" />
+          </Link>
+          <Button asChild variant="default" className="hidden md:inline-flex">
+            <Link to="/login">تسجيل / دخول</Link>
+          </Button>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-gray-700"
+            onClick={() => setOpen(!open)}
+          >
+            <Menu className="h-6 w-6" />
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {open && (
+        <div className="md:hidden bg-white border-t">
+          <nav className="flex flex-col space-y-2 p-4">
+            <Link to="/" className="text-gray-700 hover:text-primary">الرئيسية</Link>
+            <Link to="/offers" className="text-gray-700 hover:text-primary">العروض</Link>
+            <Link to="/support" className="text-gray-700 hover:text-primary">الدعم</Link>
+            <Link to="/login" className="text-gray-700 hover:text-primary">تسجيل / دخول</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
