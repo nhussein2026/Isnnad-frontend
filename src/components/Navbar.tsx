@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { Button } from "../components/ui/button";
-import { Menu, User, ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { Link } from 'react-router-dom';
+import { Button } from '../components/ui/button';
+import { Menu, User, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -16,9 +16,15 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-gray-700 hover:text-primary">الرئيسية</Link>
-          <Link to="/offers" className="text-gray-700 hover:text-primary">العروض</Link>
-          <Link to="/support" className="text-gray-700 hover:text-primary">الدعم</Link>
+          <Link to="/" className="text-gray-700 hover:text-primary">
+            الرئيسية
+          </Link>
+          <Link to="/offers" className="text-gray-700 hover:text-primary">
+            العروض
+          </Link>
+          <Link to="/support" className="text-gray-700 hover:text-primary">
+            الدعم
+          </Link>
         </nav>
 
         {/* Icons */}
@@ -46,10 +52,18 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-white border-t">
           <nav className="flex flex-col space-y-2 p-4">
-            <Link to="/" className="text-gray-700 hover:text-primary">الرئيسية</Link>
-            <Link to="/offers" className="text-gray-700 hover:text-primary">العروض</Link>
-            <Link to="/support" className="text-gray-700 hover:text-primary">الدعم</Link>
-            <Link to="/login" className="text-gray-700 hover:text-primary">تسجيل / دخول</Link>
+            <Link to="/" className="text-gray-700 hover:text-primary">
+              الرئيسية
+            </Link>
+            <Link to="/offers" className="text-gray-700 hover:text-primary">
+              العروض
+            </Link>
+            <Link to="/support" className="text-gray-700 hover:text-primary">
+              الدعم
+            </Link>
+            <Link to="/login" className="text-gray-700 hover:text-primary">
+              تسجيل / دخول
+            </Link>
           </nav>
         </div>
       )}

@@ -7,7 +7,7 @@ export interface IUser {
   referralCode?: string;
   referredBy?: string;
   subjects: object[];
-  role: "student" | "admin";
+  role: 'student' | 'admin';
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   createdAt?: Date;

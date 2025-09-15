@@ -1,7 +1,7 @@
-export default function OffersPage (){
-    return(
-        <>
-        <h3>Offers Page</h3>
-        </>
-    )
+export default function OffersPage() {
+  return (
+    <>
+      <h3>Offers Page</h3>
+    </>
+  );
 }

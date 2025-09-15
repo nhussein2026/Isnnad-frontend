@@ -1,14 +1,22 @@
 // src/pages/Courses.tsx
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { addCourse, fetchCourses, removeCourse } from "../../redux/slices/courseSlice";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import {
+  addCourse,
+  fetchCourses,
+  removeCourse,
+} from '../../redux/slices/courseSlice';
 
 export default function Courses() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.courses);
   const user = useSelector((state: RootState) => state.auth.user);
-  const [newCourse, setNewCourse] = useState({ name: "", pic: "", isOther: false });
+  const [newCourse, setNewCourse] = useState({
+    name: '',
+    pic: '',
+    isOther: false,
+  });
 
   useEffect(() => {
     dispatch(fetchCourses());
@@ -20,7 +28,7 @@ export default function Courses() {
     // derive createdBy from user (support id or _id)
     const createdBy = user?.id ?? user?._id;
     if (!createdBy) {
-      alert("Please login to create a course");
+      alert('Please login to create a course');
       return;
     }
 
@@ -29,19 +37,19 @@ export default function Courses() {
     try {
       await dispatch(addCourse(payload)).unwrap();
       // success
-      setNewCourse({ name: "", pic: "", isOther: false });
+      setNewCourse({ name: '', pic: '', isOther: false });
     } catch (err: any) {
       // handle error (toast or alert)
-      alert(err || "Failed to create course");
+      alert(err || 'Failed to create course');
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Delete this course?")) return;
+    if (!confirm('Delete this course?')) return;
     try {
       await dispatch(removeCourse(id)).unwrap();
     } catch (err: any) {
-      alert(err || "Delete failed");
+      alert(err || 'Delete failed');
     }
   };
 
@@ -58,7 +66,10 @@ export default function Courses() {
           onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
           className="border px-2 py-1 rounded"
         />
-        <button onClick={handleAdd} className="bg-blue-500 text-white px-4 py-1 rounded">
+        <button
+          onClick={handleAdd}
+          className="bg-blue-500 text-white px-4 py-1 rounded"
+        >
           Add
         </button>
       </div>
@@ -76,7 +87,8 @@ export default function Courses() {
               <div>
                 <div className="font-semibold">{course.name}</div>
                 <div className="text-sm text-gray-500">
-                  Created by: {course.createdBy?.name ?? course.createdBy ?? "—"}
+                  Created by:{' '}
+                  {course.createdBy?.name ?? course.createdBy ?? '—'}
                 </div>
               </div>
 

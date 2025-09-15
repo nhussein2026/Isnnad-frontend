@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "../redux/store";
-import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import type { RootState } from '../redux/store';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const { user } = useSelector((s: RootState) => s.auth);
@@ -11,7 +11,9 @@ export default function Dashboard() {
         <h1 className="text-2xl font-semibold">Dashboard</h1>
         <p className="mt-4">Welcome, {user?.name ?? user?.email}</p>
         <h2>Appl for achieving task</h2>
-        <Link to="/apply" className="text-blue-600 underline">Apply Now</Link>
+        <Link to="/apply" className="text-blue-600 underline">
+          Apply Now
+        </Link>
       </main>
     </>
   );

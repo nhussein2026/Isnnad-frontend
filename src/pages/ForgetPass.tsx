@@ -1,7 +1,7 @@
-export default function ForgetPass () {
-    return (
-        <>
-        <h2>Forget Pass page</h2>
-        </>
-    )
+export default function ForgetPass() {
+  return (
+    <>
+      <h2>Forget Pass page</h2>
+    </>
+  );
 }

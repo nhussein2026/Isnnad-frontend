@@ -1,18 +1,21 @@
-import { Routes, Route } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import DashboardLayout from "./layouts/DashboardLayout";
-import DashboardHome from "./pages/dashboard/DashboardHome";
-import SubjectsPage from "./pages/dashboard/CoursesPage";
-import NewTaskPage from "./pages/dashboard/NewTaskPage";
-import CartPage from "./pages/dashboard/CartPage";
-import SettingsPage from "./pages/dashboard/SettingsPage";
-import ForgetPass from "./pages/ForgetPass";
-import OffersPage from "./pages/OffersPage";
-import SupportPage from "./pages/SupportPage";
-import CoursesPage from "./pages/dashboard/CoursesPage";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import DashboardLayout from './layouts/DashboardLayout';
+import DashboardHome from './pages/dashboard/DashboardHome';
+import NewTaskPage from './pages/dashboard/Tasks';
+import CartPage from './pages/dashboard/CartPage';
+import SettingsPage from './pages/dashboard/SettingsPage';
+import ForgetPass from './pages/ForgetPass';
+import OffersPage from './pages/OffersPage';
+import SupportPage from './pages/SupportPage';
+import CoursesPage from './pages/dashboard/CoursesPage';
+import { Toaster, toast } from 'sonner';
+import Try from './pages/Try';
+import { Try1 } from './pages/Try1';
 
 function App() {
   return (
@@ -25,6 +28,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgetPass />} />
+          <Route path="try" element={<Try />} />
+          <Route path="try1" element={<Try1 />} />
         </Route>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
@@ -35,6 +40,9 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
+
+      {/* Toaster  */}
+      <Toaster />
     </>
   );
 }

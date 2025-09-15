@@ -1,40 +1,80 @@
 // src/features/assignments/AssignmentForm.tsx
-import React, { useState } from "react";
-import { initialAssignmentForm } from "./initialAssignmentForm";
-import { Button } from "../../components/ui/button"; // shadcn
-import { Input } from "../../components/ui/input";   // shadcn
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../components/ui/select"; // shadcn
+import React, { useState } from 'react';
+import { initialAssignmentForm } from './initialAssignmentForm';
+import { Button } from '../../components/ui/button'; // shadcn
+import { Input } from '../../components/ui/input'; // shadcn
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '../../components/ui/select'; // shadcn
 
-export default function AssignmentForm({ onSubmit }: { onSubmit: (data: any) => void }) {
+export default function AssignmentForm({
+  onSubmit,
+}: {
+  onSubmit: (data: any) => void;
+}) {
   const [formData, setFormData] = useState(initialAssignmentForm);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSelectChange = (name: string, value: string) => {
     setFormData({ ...formData, [name]: value });
   };
-console.log("submit task changes eChange", handleChange)
+  console.log('submit task changes eChange', handleChange);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
   };
-console.log("submit task ", handleSubmit)
+  console.log('submit task ', handleSubmit);
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Input name="studentName" placeholder="اسم الطالب" value={formData.studentName} onChange={handleChange} />
-      <Input name="studentId" placeholder="رقم الطالب" value={formData.studentId} onChange={handleChange} />
-      <Input name="doctorName" placeholder="اسم الدكتور" value={formData.doctorName} onChange={handleChange} />
-      
-      {/* Course ID */}
-      <Input name="course" placeholder="معرّف المادة (Course ID)" value={formData.course} onChange={handleChange} />
+      <Input
+        name="studentName"
+        placeholder="اسم الطالب"
+        value={formData.studentName}
+        onChange={handleChange}
+      />
+      <Input
+        name="studentId"
+        placeholder="رقم الطالب"
+        value={formData.studentId}
+        onChange={handleChange}
+      />
+      <Input
+        name="doctorName"
+        placeholder="اسم الدكتور"
+        value={formData.doctorName}
+        onChange={handleChange}
+      />
 
-      <Input name="question" placeholder="السؤال أو الموضوع" value={formData.question} onChange={handleChange} />
+      {/* Course ID */}
+      <Input
+        name="course"
+        placeholder="معرّف المادة (Course ID)"
+        value={formData.course}
+        onChange={handleChange}
+      />
+
+      <Input
+        name="question"
+        placeholder="السؤال أو الموضوع"
+        value={formData.question}
+        onChange={handleChange}
+      />
 
       {/* Type */}
-      <Select onValueChange={(value) => handleSelectChange("type", value)} defaultValue={formData.type}>
+      <Select
+        onValueChange={(value) => handleSelectChange('type', value)}
+        defaultValue={formData.type}
+      >
         <SelectTrigger>
           <SelectValue placeholder="نوع المهمة" />
         </SelectTrigger>
@@ -46,11 +86,25 @@ console.log("submit task ", handleSubmit)
         </SelectContent>
       </Select>
 
-      <Input name="description" placeholder="الوصف" value={formData.description} onChange={handleChange} />
-      <Input name="timeToComplete" type="number" placeholder="الوقت (دقائق أو ساعات)" value={formData.timeToComplete} onChange={handleChange} />
+      <Input
+        name="description"
+        placeholder="الوصف"
+        value={formData.description}
+        onChange={handleChange}
+      />
+      <Input
+        name="timeToComplete"
+        type="number"
+        placeholder="الوقت (دقائق أو ساعات)"
+        value={formData.timeToComplete}
+        onChange={handleChange}
+      />
 
       {/* Status */}
-      <Select onValueChange={(value) => handleSelectChange("status", value)} defaultValue={formData.status}>
+      <Select
+        onValueChange={(value) => handleSelectChange('status', value)}
+        defaultValue={formData.status}
+      >
         <SelectTrigger>
           <SelectValue placeholder="حالة المهمة" />
         </SelectTrigger>
@@ -62,9 +116,16 @@ console.log("submit task ", handleSubmit)
         </SelectContent>
       </Select>
 
-      <Input name="additionalInfo" placeholder="ملاحظات إضافية" value={formData.additionalInfo} onChange={handleChange} />
+      <Input
+        name="additionalInfo"
+        placeholder="ملاحظات إضافية"
+        value={formData.additionalInfo}
+        onChange={handleChange}
+      />
 
-      <Button type="submit" className="w-full">حفظ المهمة</Button>
+      <Button type="submit" className="w-full">
+        حفظ المهمة
+      </Button>
     </form>
   );
 }

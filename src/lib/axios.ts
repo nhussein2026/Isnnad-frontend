@@ -1,17 +1,17 @@
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // dev proxy -> http://localhost:5000/api
+  baseURL: 'http://localhost:5000/api', // dev proxy -> http://localhost:5000/api
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 // Attach token from localStorage on each request
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
-  console.log("Axios Request:", config.method, config.url, config.data);
+  console.log('Axios Request:', config.method, config.url, config.data);
   return config;
 });
 

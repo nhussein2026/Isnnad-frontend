@@ -1,20 +1,20 @@
 // src/redux/slices/courseSlice.ts
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   getCourses,
   getCourseById,
   createCourse,
   updateCourse,
   deleteCourse,
-} from "../../lib/courseApi";
+} from '../../lib/courseApi';
 
-export const fetchCourses = createAsyncThunk("courses/fetchAll", async () => {
+export const fetchCourses = createAsyncThunk('courses/fetchAll', async () => {
   const { data } = await getCourses();
   return data.courses;
 });
 
 export const fetchCourseById = createAsyncThunk(
-  "courses/fetchById",
+  'courses/fetchById',
   async (id: string) => {
     const { data } = await getCourseById(id);
     return data.course;
@@ -22,7 +22,7 @@ export const fetchCourseById = createAsyncThunk(
 );
 
 export const addCourse = createAsyncThunk(
-  "courses/add",
+  'courses/add',
   async (courseData: any) => {
     const { data } = await createCourse(courseData);
     return data.course;
@@ -30,7 +30,7 @@ export const addCourse = createAsyncThunk(
 );
 
 export const editCourse = createAsyncThunk(
-  "courses/edit",
+  'courses/edit',
   async ({ id, updates }: { id: string; updates: any }) => {
     const { data } = await updateCourse(id, updates);
     return data.course;
@@ -38,7 +38,7 @@ export const editCourse = createAsyncThunk(
 );
 
 export const removeCourse = createAsyncThunk(
-  "courses/delete",
+  'courses/delete',
   async (id: string) => {
     await deleteCourse(id);
     return id;
@@ -46,7 +46,7 @@ export const removeCourse = createAsyncThunk(
 );
 
 const courseSlice = createSlice({
-  name: "courses",
+  name: 'courses',
   initialState: {
     items: [] as any[],
     selected: null as any,
@@ -66,7 +66,7 @@ const courseSlice = createSlice({
       })
       .addCase(fetchCourses.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? "Error fetching courses";
+        state.error = action.error.message ?? 'Error fetching courses';
       })
 
       // Fetch one

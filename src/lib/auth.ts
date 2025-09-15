@@ -1,7 +1,7 @@
-import type { IUser } from "../types/user";
+import type { IUser } from '../types/user';
 
-const TOKEN_KEY = "token";
-const USER_KEY = "user";
+const TOKEN_KEY = 'token';
+const USER_KEY = 'user';
 
 export const saveAuth = (token: string, user: IUser) => {
   localStorage.setItem(TOKEN_KEY, token);

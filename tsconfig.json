@@ -4,6 +4,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -27,10 +28,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": [
-    "src",
-    "types/**/*",
-    "src/types/**/*"
-  ],
+  "include": ["src", "types/**/*", "src/types/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

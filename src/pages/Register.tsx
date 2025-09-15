@@ -1,23 +1,28 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { Toaster, toast } from "sonner";
-import { registerUser } from "../redux/slices/authSlice";
-import type { AppDispatch, RootState } from "../redux/store";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import { Toaster, toast } from 'sonner';
+import { registerUser } from '../redux/slices/authSlice';
+import type { AppDispatch, RootState } from '../redux/store';
 
 export default function Register() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { loading, error } = useSelector((s: RootState) => s.auth);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(registerUser   (form)).unwrap();
-      toast.success("Registered — please login");
-      navigate("/login");
+      await dispatch(registerUser(form)).unwrap();
+      toast.success('Registered — please login');
+      navigate('/login');
     } catch (err: any) {
-      toast.error(err || "Register failed");
+      toast.error(err || 'Register failed');
     }
   };
 
@@ -29,7 +34,9 @@ export default function Register() {
         className="relative bg-white rounded-3xl shadow-2xl w-1/2 max-w-md p-8
                    backdrop-blur-md bg-opacity-80 animate-fadeIn scale-up"
       >
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Create Account</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+          Create Account
+        </h2>
 
         <input
           required
@@ -71,12 +78,15 @@ export default function Register() {
           disabled={loading}
           className="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:scale-105"
         >
-          {loading ? "Creating..." : "Register"}
+          {loading ? 'Creating...' : 'Register'}
         </button>
 
         <p className="mt-4 text-center text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link to="/login" className="text-sky-600 font-medium hover:underline">
+          Already have an account?{' '}
+          <Link
+            to="/login"
+            className="text-sky-600 font-medium hover:underline"
+          >
             Login
           </Link>
         </p>

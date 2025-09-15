@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Card, CardContent } from "../components/ui/card";
-import { Label } from "../components/ui/label";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
-import { toast } from "sonner";
+import { useEffect, useState } from 'react';
+import { Card, CardContent } from '../components/ui/card';
+import { Label } from '../components/ui/label';
+import { Input } from '../components/ui/input';
+import { Button } from '../components/ui/button';
+import { toast } from 'sonner';
 import {
   User,
   Mail,
@@ -12,39 +12,41 @@ import {
   // Bell,
   Shield,
   AtSign,
-} from "lucide-react";
-import type { IUser } from "../types/user";
-import api from "../lib/axios";
+} from 'lucide-react';
+import type { IUser } from '../types/user';
+import api from '../lib/axios';
 
 export default function UserProfile() {
   const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
-  
+
   // Local settings state
   // const [notifications, setNotifications] = useState(true);
-  
+
   // Password change state
   const [passwords, setPasswords] = useState({
-    newPassword: "",
-    confirmPassword: ""
+    newPassword: '',
+    confirmPassword: '',
   });
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        console.log("Fetching user...");
-        const { data } = await api.get<IUser>("/user/me");
-        console.log("User data received:", data);
-        
+        console.log('Fetching user...');
+        const { data } = await api.get<IUser>('/user/me');
+        console.log('User data received:', data);
+
         setUser(data);
-        console.log("User state updated:", data);
+        console.log('User state updated:', data);
         // Set initial settings from user data if available
         // if (data.notifications !== undefined) setNotifications(data.notifications);
-        
       } catch (err: any) {
-        console.error("❌ Failed to fetch user:", err.response?.data || err.message);
-        toast.error("Failed to load profile data. Please try again.");
+        console.error(
+          '❌ Failed to fetch user:',
+          err.response?.data || err.message
+        );
+        toast.error('Failed to load profile data. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -57,10 +59,10 @@ export default function UserProfile() {
     setUpdating(true);
     try {
       // await api.put("/user/settings", { language, notifications });
-      toast.success("Settings updated successfully!");
+      toast.success('Settings updated successfully!');
     } catch (err: any) {
-      console.error("Failed to update settings:", err);
-      toast.error("Failed to update settings. Please try again.");
+      console.error('Failed to update settings:', err);
+      toast.error('Failed to update settings. Please try again.');
     } finally {
       setUpdating(false);
     }
@@ -69,43 +71,45 @@ export default function UserProfile() {
   const handlePasswordChange = async () => {
     // Validation
     if (!passwords.newPassword || !passwords.confirmPassword) {
-      toast.error("Please fill in both password fields");
+      toast.error('Please fill in both password fields');
       return;
     }
-    
+
     if (passwords.newPassword !== passwords.confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error('Passwords do not match');
       return;
     }
-    
+
     if (passwords.newPassword.length < 6) {
-      toast.error("Password must be at least 6 characters long");
+      toast.error('Password must be at least 6 characters long');
       return;
     }
 
     setUpdating(true);
     try {
-      await api.put("/user/change-password", { 
-        newPassword: passwords.newPassword 
+      await api.put('/user/change-password', {
+        newPassword: passwords.newPassword,
       });
-      
-      toast.success("Password updated successfully!");
-      
+
+      toast.success('Password updated successfully!');
+
       // Clear password fields
-      setPasswords({ newPassword: "", confirmPassword: "" });
-      
+      setPasswords({ newPassword: '', confirmPassword: '' });
     } catch (err: any) {
-      console.error("Failed to update password:", err);
-      toast.error("Failed to update password. Please try again.");
+      console.error('Failed to update password:', err);
+      toast.error('Failed to update password. Please try again.');
     } finally {
       setUpdating(false);
     }
   };
 
-  const handlePasswordInputChange = (field: 'newPassword' | 'confirmPassword', value: string) => {
-    setPasswords(prev => ({
+  const handlePasswordInputChange = (
+    field: 'newPassword' | 'confirmPassword',
+    value: string
+  ) => {
+    setPasswords((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -128,10 +132,10 @@ export default function UserProfile() {
         <Card className="shadow-lg rounded-2xl">
           <CardContent className="p-6 text-center">
             <h2 className="text-xl font-semibold mb-2">Profile Unavailable</h2>
-            <p className="text-gray-600 mb-4">Unable to load user profile data.</p>
-            <Button onClick={() => window.location.reload()}>
-              Retry
-            </Button>
+            <p className="text-gray-600 mb-4">
+              Unable to load user profile data.
+            </p>
+            <Button onClick={() => window.location.reload()}>Retry</Button>
           </CardContent>
         </Card>
       </div>
@@ -146,39 +150,39 @@ export default function UserProfile() {
           <h2 className="text-2xl font-semibold mb-4">User Profile</h2>
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-xl font-bold text-white">
-              {user.name?.[0]?.toUpperCase() || "U"}
+              {user.name?.[0]?.toUpperCase() || 'U'}
             </div>
             <div className="space-y-1">
               <p className="flex items-center gap-2 text-lg font-medium">
-                <User size={18} className="text-gray-600" /> 
-                {user.name || "No name provided"}
+                <User size={18} className="text-gray-600" />
+                {user.name || 'No name provided'}
               </p>
-              
+
               {user.username && (
                 <p className="flex items-center gap-2 text-gray-600">
                   <AtSign size={18} /> {user.username}
                 </p>
               )}
-              
+
               <p className="flex items-center gap-2 text-gray-600">
-                <Mail size={18} /> {user.email || "No email provided"}
+                <Mail size={18} /> {user.email || 'No email provided'}
               </p>
-              
+
               {user.phone && (
                 <p className="flex items-center gap-2 text-gray-600">
                   <Phone size={18} /> {user.phone}
                 </p>
               )}
-              
+
               {user.role && (
                 <p className="flex items-center gap-2 text-gray-600">
                   <Shield size={18} /> Role: {user.role}
                 </p>
               )}
-              
+
               {user.createdAt && (
                 <p className="flex items-center gap-2 text-gray-600">
-                  <Calendar size={18} /> 
+                  <Calendar size={18} />
                   Joined: {new Date(user.createdAt).toLocaleDateString()}
                 </p>
               )}
@@ -191,8 +195,6 @@ export default function UserProfile() {
       <Card className="shadow-lg rounded-2xl">
         <CardContent className="p-6 space-y-6">
           <h2 className="text-2xl font-semibold mb-4">Settings</h2>
-
-     
 
           {/* Notifications */}
           <div className="flex items-center gap-3">
@@ -210,12 +212,12 @@ export default function UserProfile() {
             </Label> */}
           </div>
 
-          <Button 
-            onClick={handleSaveSettings} 
+          <Button
+            onClick={handleSaveSettings}
             className="w-full"
             disabled={updating}
           >
-            {updating ? "Saving..." : "Save Settings"}
+            {updating ? 'Saving...' : 'Save Settings'}
           </Button>
         </CardContent>
       </Card>
@@ -224,40 +226,50 @@ export default function UserProfile() {
       <Card className="shadow-lg rounded-2xl">
         <CardContent className="p-6 space-y-4">
           <h3 className="text-xl font-semibold mb-4">Change Password</h3>
-          
+
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="newPassword" className="font-medium">New Password</Label>
-              <Input 
+              <Label htmlFor="newPassword" className="font-medium">
+                New Password
+              </Label>
+              <Input
                 id="newPassword"
-                type="password" 
+                type="password"
                 placeholder="Enter new password"
                 value={passwords.newPassword}
-                onChange={(e) => handlePasswordInputChange('newPassword', e.target.value)}
+                onChange={(e) =>
+                  handlePasswordInputChange('newPassword', e.target.value)
+                }
                 disabled={updating}
                 className="focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
+
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="font-medium">Confirm Password</Label>
-              <Input 
+              <Label htmlFor="confirmPassword" className="font-medium">
+                Confirm Password
+              </Label>
+              <Input
                 id="confirmPassword"
-                type="password" 
+                type="password"
                 placeholder="Confirm new password"
                 value={passwords.confirmPassword}
-                onChange={(e) => handlePasswordInputChange('confirmPassword', e.target.value)}
+                onChange={(e) =>
+                  handlePasswordInputChange('confirmPassword', e.target.value)
+                }
                 disabled={updating}
                 className="focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            
-            <Button 
+
+            <Button
               onClick={handlePasswordChange}
-              disabled={updating || !passwords.newPassword || !passwords.confirmPassword}
+              disabled={
+                updating || !passwords.newPassword || !passwords.confirmPassword
+              }
               className="w-full"
             >
-              {updating ? "Updating..." : "Update Password"}
+              {updating ? 'Updating...' : 'Update Password'}
             </Button>
           </div>
         </CardContent>

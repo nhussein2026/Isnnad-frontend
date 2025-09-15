@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { saveAuth, clearAuth, getToken, getStoredUser } from "../../lib/auth";
-import api from "../../lib/axios";
-import type { IUser } from "../../types/user";
+import { saveAuth, clearAuth, getToken, getStoredUser } from '../../lib/auth';
+import api from '../../lib/axios';
+import type { IUser } from '../../types/user';
 
 interface AuthState {
   user: IUser | null;
@@ -19,40 +19,40 @@ const initialState: AuthState = {
 };
 
 export const loginUser = createAsyncThunk(
-  "auth/login",
+  'auth/login',
   async (credentials: { email: string; password: string }, thunkAPI) => {
     try {
-      const res = await api.post("/auth/login", credentials);
+      const res = await api.post('/auth/login', credentials);
       const token: string = res.data.token;
       const user: IUser = res.data.user;
       saveAuth(token, user);
       return { token, user };
     } catch (err: any) {
-      const msg = err?.response?.data?.msg || err.message || "Login failed";
+      const msg = err?.response?.data?.msg || err.message || 'Login failed';
       return thunkAPI.rejectWithValue(msg);
     }
   }
 );
 
 export const registerUser = createAsyncThunk(
-  "auth/register",
+  'auth/register',
   async (
     payload: { name: string; email: string; phone: string; password: string },
     thunkAPI
   ) => {
     try {
-      const res = await api.post("/auth/register", payload);
+      const res = await api.post('/auth/register', payload);
       // backend returns created user; we won't auto-login here
       return res.data.user ?? res.data;
     } catch (err: any) {
-      const msg = err?.response?.data?.msg || err.message || "Register failed";
+      const msg = err?.response?.data?.msg || err.message || 'Register failed';
       return thunkAPI.rejectWithValue(msg);
     }
   }
 );
 
 const slice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logout(state) {
