@@ -16,11 +16,23 @@ export default function Login() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(loginUser(form)).unwrap();
+      const result = await dispatch(loginUser(form)).unwrap();
       toast.success('Logged in');
-      navigate('/dashboard');
-    } catch (err: any) {
-      toast.error(err || 'Login failed');
+      const role = result.user?.role;
+      // You can customize routes based on actual roles
+      if (role === 'admin') {
+        navigate('/admin/dashboard');
+      } else if (role === 'manager') {
+        navigate('/manager/dashboard');
+      } else {
+        navigate('/dashboard'); // default for regular users
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error('Login failed');
+      }
     }
   };
 
@@ -151,7 +163,7 @@ export default function Login() {
             disabled={loading}
             className="bg-[var(--primary-color)] w-full text-white font-bold flex h-[57px] px-4 py-2 justify-center items-center gap-[10px] self-stretch rounded-[6px]"
           >
-            {loading ? 'جار تسجيل الدخول...' : 'تسجيل الدخول'}
+            {loading ? '... جار تسجيل الدخول' : 'تسجيل الدخول'}
           </button>
 
           <p className="mt-3 text-sm">

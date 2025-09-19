@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Menu, User, ShoppingCart } from 'lucide-react';
+// import { Button } from '../components/ui/button';
+import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import logo from '../assets/images/Isnnad-logo-red-white.svg';
 

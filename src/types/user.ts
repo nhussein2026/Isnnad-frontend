@@ -4,10 +4,19 @@ export interface IUser {
   phone: string;
   username: string;
   password: string;
+  avatar?: string;
   referralCode?: string;
   referredBy?: string;
   subjects: object[];
-  role: 'student' | 'admin';
+  role:
+    | 'student'
+    | 'admin'
+    | 'admin'
+    | 'user'
+    | 'manager'
+    | 'tutor'
+    | 'programmer'
+    | 'Assistant';
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   createdAt?: Date;
