@@ -16,12 +16,32 @@ export default function Register() {
     email: "",
     phone: "",
     password: "",
+    confirmPassword: "",
   });
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Local validation
+    if (!form.name || !form.email || !form.phone || !form.password) {
+      toast.error("الرجاء ملء جميع الحقول المطلوبة");
+      return;
+    }
+
+    if (form.password !== form.confirmPassword) {
+      toast.error("كلمة المرور وتأكيدها غير متطابقتين");
+      return;
+    }
+
     try {
-      await dispatch(registerUser(form)).unwrap();
+      await dispatch(
+        registerUser({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          password: form.password,
+        })
+      ).unwrap();
       toast.success("تم إنشاء الحساب — يرجى تسجيل الدخول");
       navigate("/login");
     } catch (err: any) {
@@ -31,7 +51,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 relative overflow-hidden">
-      {/* Top-left SVG  */}
+      {/* Top-left SVG */}
       <div className="absolute top-0 left-0 m-0 opacity-80">
         <svg
           width="238"
@@ -50,7 +70,7 @@ export default function Register() {
         </svg>
       </div>
 
-      {/* Bottom-right SVG  */}
+      {/* Bottom-right SVG */}
       <div className="absolute bottom-0 right-0 m-0 opacity-80">
         <svg
           width="238"
@@ -68,7 +88,6 @@ export default function Register() {
           </g>
         </svg>
       </div>
-
 
       {/* Main Card */}
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md relative z-10">
@@ -151,6 +170,26 @@ export default function Register() {
                 placeholder="أدخل كلمة المرور"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className="w-full pr-12 pl-3 py-2 border border-slate-300 bg-[#F3F3F3] rounded text-right placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
+              />
+            </div>
+          </div>
+
+          {/* Confirm Password */}
+          <div className="w-full flex flex-col gap-2">
+            <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
+              تأكيد كلمة المرور
+            </label>
+            <div className="relative w-full">
+              <Lock className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+              <input
+                required
+                type="password"
+                placeholder="أعد كتابة كلمة المرور"
+                value={form.confirmPassword}
+                onChange={(e) =>
+                  setForm({ ...form, confirmPassword: e.target.value })
+                }
                 className="w-full pr-12 pl-3 py-2 border border-slate-300 bg-[#F3F3F3] rounded text-right placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
               />
             </div>
