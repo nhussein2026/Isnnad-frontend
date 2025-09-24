@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../App.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/images/Isnnad-logo-red-white.svg";
@@ -140,20 +141,33 @@ export default function Register() {
             </div>
           </div>
 
-          {/* Phone */}
+          {/* Phone with Country Code */}
           <div className="w-full flex flex-col gap-2">
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               رقم الهاتف
             </label>
-            <div className="relative w-full">
-              <Phone className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
-              <input
-                required
-                placeholder="05xxxxxxxx"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full pr-12 pl-3 py-2 border border-slate-300 bg-[#F3F3F3] rounded text-right placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
-              />
+            <div className="relative w-full flex items-center">
+              {/* Country Code with Flag */}
+              <div className="flex items-center justify-center w-24 pr-2 pl-2 py-2 border border-slate-300 bg-gray-200 rounded-l gap-2">
+                <img
+                  src="https://flagcdn.com/16x12/om.png"
+                  alt="Oman Flag"
+                  className="w-5 h-5 object-cover rounded-sm"
+                />
+                <span className="text-gray-700 font-medium">+968</span>
+              </div>
+              {/* Phone Number */}
+              <div className="relative flex-1">
+                <Phone className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 w-5 h-5" />
+                <input
+                  required
+                  type="number"
+                  placeholder="2xxxxxxxx"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className="w-full pr-12 pl-3 py-2 border border-slate-300 border-l-0 bg-[#F3F3F3] rounded-r text-right placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-slate-400 no-spinner"
+                />
+              </div>
             </div>
           </div>
 

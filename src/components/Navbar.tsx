@@ -18,8 +18,8 @@ export default function Navbar() {
           >
             تسجيل الدخول
           </Link>
-                    <Link
-            to="/signup"
+          <Link
+            to="/register"
             className="hidden md:inline-flex px-4 py-3 items-center justify-center gap-2 rounded-lg bg-[#171717] shadow-sm text-sm font-medium text-white hover:bg-[#282727b7]"
           >
             إنشاء حساب
