@@ -91,6 +91,13 @@ const AdminSidebar = ({ isCollapsed, toggleSidebar }) => {
       action: null,
     },
     {
+      id: 7,
+      name: 'NNNNNNNNNNNNNNN',
+      icon: HelpCircle,
+      href: '/admin/n101s',
+      action: null,
+    },
+    {
       id: 8,
       name: 'تسجيل الخروج',
       icon: LogOut,

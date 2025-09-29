@@ -150,9 +150,9 @@ export default function Login() {
             {/* Forget password link */}
             <a
               href="#"
-              className="text-xs sm:text-sm text-right text-blue-600 hover:underline"
+              className="text-xs sm:text-sm text-left text-blue-600 hover:underline"
             >
-              نسيت كلمة المرور؟
+              هل نسيت كلمة المرور؟
             </a>
           </div>
 
@@ -166,10 +166,10 @@ export default function Login() {
             {loading ? '... جار تسجيل الدخول' : 'تسجيل الدخول'}
           </button>
 
-          <p className="mt-3 text-sm">
-            Don't have an account?{' '}
+          <p className="mt-3 text-sm text-center">
+           ليس لديك حساب؟!  {' '}
             <Link to="/register" className="text-sky-600">
-              Register
+              قم بإنشاء حسابك الآن
             </Link>
           </p>
         </form>

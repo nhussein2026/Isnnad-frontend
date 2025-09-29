@@ -1,7 +1,11 @@
+import Header from "../components/homePage/Header";
+import HeroSection from "../components/HeroSection";
+
 export default function Home() {
   return (
-    <div className="h-full w-full flex justify-center">
-      <h1>ٌإسناد . . . ٌقريبا</h1>
+    <div>
+      <Header />
+      <HeroSection />
     </div>
-  );
+  )
 }
