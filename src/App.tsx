@@ -47,7 +47,7 @@ import UserCart from './pages/dashboards/user/UserCart';
 // import Knowledge from './pages/dashboards/assistant/Knowledge';
 
 // Common Dashboard Pages
-import SettingsPage from './pages/dashboard/SettingsPage';
+// import SettingsPage from './pages/dashboard/SettingsPage';
 
 // Route Protection Component
 import ProtectedRoute from './components/ProtectedRoute';
@@ -86,7 +86,7 @@ function App() {
           <Route path="users" element={<UserManagement />} />
           <Route path="system-settings" element={<SystemSettings />} />
           <Route path="analytics" element={<Analytics />} />
-          <Route path="settings" element={<SettingsPage />} />
+          {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
         {/* User Dashboard Routes */}
@@ -105,7 +105,7 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
           <Route path="courses" element={<UserCourses />} />
           <Route path="cart" element={<UserCart />} />
-          <Route path="settings" element={<SettingsPage />} />
+          {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
         {/* Manager Dashboard Routes */}
@@ -124,7 +124,7 @@ function App() {
           <Route path="team" element={<TeamManagement />} />
           <Route path="projects" element={<ProjectOverview />} />
           <Route path="reports" element={<Reports />} /> */}
-          <Route path="settings" element={<SettingsPage />} />
+          {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
         
@@ -164,7 +164,7 @@ function App() {
           <Route path="tickets" element={<SupportTickets />} />
           <Route path="user-support" element={<UserSupport />} />
           <Route path="knowledge" element={<Knowledge />} /> */}
-          <Route path="settings" element={<SettingsPage />} />
+          {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
         {/* Legacy Dashboard Redirect - for backward compatibility */}
@@ -179,8 +179,8 @@ function App() {
         toastOptions={{
           duration: 4000,
           style: {
-            background: '#363636',
-            color: '#fff',
+            background: '#f4f4f4',
+            color: '#8D1B3D',
           },
         }}
       />
