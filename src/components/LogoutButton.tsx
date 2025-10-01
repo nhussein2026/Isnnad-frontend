@@ -1,24 +1,22 @@
 // components/LogoutButton.jsx - Reusable logout button component
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import { logout } from '../redux/slices/authSlice';
-import { handleLogout } from '../lib/authUtils';
 
-export const LogoutButton = ({ 
-  className = '', 
-  showIcon = true, 
+export const LogoutButton = ({
+  className = '',
+  showIcon = true,
   showText = true,
   confirmBeforeLogout = false,
-  variant = 'default' // 'default', 'danger', 'ghost'
+  variant = 'default', // 'default', 'danger', 'ghost'
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getButtonClasses = () => {
     const baseClasses = 'flex items-center transition-colors duration-200';
-    
+
     switch (variant) {
       case 'danger':
         return `${baseClasses} text-red-600 hover:text-red-800 hover:bg-red-50 px-3 py-2 rounded-md`;
@@ -54,4 +52,3 @@ export const LogoutButton = ({
     </button>
   );
 };
-

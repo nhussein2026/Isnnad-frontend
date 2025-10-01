@@ -22,3 +22,15 @@ export interface IUser {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface AuthState {
+  user: IUser | null;
+  token: string | null;
+  isAuthenticated: boolean;
+  loading: boolean;
+}
+
+export interface RootState {
+  auth: AuthState;
+  // Add other slices here
+}

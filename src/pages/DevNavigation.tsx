@@ -1,4 +1,14 @@
-import React from 'react';
+interface Route {
+  path: string;
+  label: string;
+  description: string;
+}
+
+interface RouteSectionProps {
+  title: string;
+  routes: Route[];
+  available?: boolean;
+}
 
 const DevNavigation = () => {
   const routes = {
@@ -7,61 +17,141 @@ const DevNavigation = () => {
       { path: '/offers', label: 'Offers', description: 'Offers page' },
       { path: '/support', label: 'Support', description: 'Support page' },
       { path: '/login', label: 'Login', description: 'Login page' },
-      { path: '/register', label: 'Register', description: 'Registration page' },
-      { path: '/forget-password', label: 'Forget Password', description: 'Password reset page' }
+      {
+        path: '/register',
+        label: 'Register',
+        description: 'Registration page',
+      },
+      {
+        path: '/forget-password',
+        label: 'Forget Password',
+        description: 'Password reset page',
+      },
     ],
     admin: [
-      { path: '/admin/dashboard', label: 'Admin Dashboard', description: 'Admin home page' },
-      { path: '/admin/users', label: 'User Management', description: 'Manage all users' },
-      { path: '/admin/system-settings', label: 'System Settings', description: 'System configuration' },
-      { path: '/admin/analytics', label: 'Analytics', description: 'System analytics' },
-      { path: '/admin/settings', label: 'Admin Settings', description: 'Admin account settings' }
+      {
+        path: '/admin/dashboard',
+        label: 'Admin Dashboard',
+        description: 'Admin home page',
+      },
+      {
+        path: '/admin/users',
+        label: 'User Management',
+        description: 'Manage all users',
+      },
+      {
+        path: '/admin/system-settings',
+        label: 'System Settings',
+        description: 'System configuration',
+      },
+      {
+        path: '/admin/analytics',
+        label: 'Analytics',
+        description: 'System analytics',
+      },
+      {
+        path: '/admin/settings',
+        label: 'Admin Settings',
+        description: 'Admin account settings',
+      },
     ],
     user: [
-      { path: '/user/dashboard', label: 'User Dashboard', description: 'User home page' },
-      { path: '/user/profile', label: 'User Profile', description: 'Edit profile information' },
-      { path: '/user/courses', label: 'My Courses', description: 'View enrolled courses' },
-      { path: '/user/cart', label: 'Shopping Cart', description: 'Course shopping cart' },
-      { path: '/user/settings', label: 'User Settings', description: 'User account settings' }
+      {
+        path: '/user/dashboard',
+        label: 'User Dashboard',
+        description: 'User home page',
+      },
+      {
+        path: '/user/profile',
+        label: 'User Profile',
+        description: 'Edit profile information',
+      },
+      {
+        path: '/user/courses',
+        label: 'My Courses',
+        description: 'View enrolled courses',
+      },
+      {
+        path: '/user/cart',
+        label: 'Shopping Cart',
+        description: 'Course shopping cart',
+      },
+      {
+        path: '/user/settings',
+        label: 'User Settings',
+        description: 'User account settings',
+      },
     ],
     tutor: [
-      { path: '/tutor/dashboard', label: 'Tutor Dashboard', description: 'Tutor home page' },
-      { path: '/tutor/students', label: 'Student Management', description: 'Manage students' },
-      { path: '/tutor/courses/create', label: 'Create Course', description: 'Create new course' },
-      { path: '/tutor/settings', label: 'Tutor Settings', description: 'Tutor account settings' }
+      {
+        path: '/tutor/dashboard',
+        label: 'Tutor Dashboard',
+        description: 'Tutor home page',
+      },
+      {
+        path: '/tutor/students',
+        label: 'Student Management',
+        description: 'Manage students',
+      },
+      {
+        path: '/tutor/courses/create',
+        label: 'Create Course',
+        description: 'Create new course',
+      },
+      {
+        path: '/tutor/settings',
+        label: 'Tutor Settings',
+        description: 'Tutor account settings',
+      },
     ],
     manager: [
-      { path: '/manager/settings', label: 'Manager Settings', description: 'Manager account settings' }
+      {
+        path: '/manager/settings',
+        label: 'Manager Settings',
+        description: 'Manager account settings',
+      },
     ],
     assistant: [
-      { path: '/assistant/settings', label: 'Assistant Settings', description: 'Assistant account settings' }
-    ]
+      {
+        path: '/assistant/settings',
+        label: 'Assistant Settings',
+        description: 'Assistant account settings',
+      },
+    ],
   };
 
-  const handleNavigation = (path) => {
+  const handleNavigation = (path: string) => {
     window.location.href = path;
   };
 
-  const getStatusColor = (available) => {
+  const getStatusColor = (available: boolean) => {
     return available ? 'text-green-600' : 'text-red-500';
   };
 
-  const getStatusIcon = (available) => {
+  const getStatusIcon = (available: boolean) => {
     return available ? '✅' : '❌';
   };
 
-  const RouteSection = ({ title, routes: sectionRoutes, available = true }) => (
+  const RouteSection = ({
+    title,
+    routes: sectionRoutes,
+    available = true,
+  }: RouteSectionProps) => (
     <div className="mb-8">
       <h2 className="text-xl font-bold mb-4 text-gray-800 border-b-2 border-gray-200 pb-2">
         {title} Routes
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sectionRoutes.map((route, index) => (
-          <div key={index} className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-white">
+          <div
+            key={index}
+            className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-white"
+          >
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-semibold text-gray-800">{route.label}</h3>
               <span className={`text-sm ${getStatusColor(available)}`}>
-                {getStatusIcon(available)} {available ? 'Available' : 'Coming Soon'}
+                {getStatusIcon(available)}{' '}
+                {available ? 'Available' : 'Coming Soon'}
               </span>
             </div>
             <p className="text-sm text-gray-600 mb-3">{route.description}</p>
@@ -98,13 +188,16 @@ const DevNavigation = () => {
             🚧 Development Navigation Hub
           </h1>
           <p className="text-gray-600 mb-4">
-            Quick access to all available routes during development. This page will be removed in production.
+            Quick access to all available routes during development. This page
+            will be removed in production.
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <p className="text-blue-800 text-sm">
-              <strong>Note:</strong> Some routes may redirect based on authentication and role permissions.
+              <strong>Note:</strong> Some routes may redirect based on
+              authentication and role permissions.
               <br />
-              <strong>Tip:</strong> Test different user roles by logging in with different accounts or modify your Redux state.
+              <strong>Tip:</strong> Test different user roles by logging in with
+              different accounts or modify your Redux state.
             </p>
           </div>
         </div>
@@ -114,16 +207,28 @@ const DevNavigation = () => {
         <RouteSection title="Admin" routes={routes.admin} available={true} />
         <RouteSection title="User" routes={routes.user} available={true} />
         <RouteSection title="Tutor" routes={routes.tutor} available={true} />
-        <RouteSection title="Manager" routes={routes.manager} available={true} />
-        <RouteSection title="Assistant" routes={routes.assistant} available={true} />
+        <RouteSection
+          title="Manager"
+          routes={routes.manager}
+          available={true}
+        />
+        <RouteSection
+          title="Assistant"
+          routes={routes.assistant}
+          available={true}
+        />
 
         {/* Coming Soon Sections */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Coming Soon (Commented Routes)</h2>
-          
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
+            Coming Soon (Commented Routes)
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-yellow-800 mb-3">Manager Routes (Planned)</h3>
+              <h3 className="text-lg font-semibold text-yellow-800 mb-3">
+                Manager Routes (Planned)
+              </h3>
               <ul className="text-sm text-yellow-700 space-y-1">
                 <li>• /manager/dashboard - Manager Dashboard</li>
                 <li>• /manager/team - Team Management</li>
@@ -133,14 +238,18 @@ const DevNavigation = () => {
             </div>
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-yellow-800 mb-3">Tutor Routes (Planned)</h3>
+              <h3 className="text-lg font-semibold text-yellow-800 mb-3">
+                Tutor Routes (Planned)
+              </h3>
               <ul className="text-sm text-yellow-700 space-y-1">
                 <li>• /tutor/grading - Grading Center</li>
               </ul>
             </div>
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibent text-yellow-800 mb-3">Programmer Routes (Planned)</h3>
+              <h3 className="text-lg font-semibent text-yellow-800 mb-3">
+                Programmer Routes (Planned)
+              </h3>
               <ul className="text-sm text-yellow-700 space-y-1">
                 <li>• /programmer/dashboard - Programmer Dashboard</li>
                 <li>• /programmer/projects - Project Management</li>
@@ -150,7 +259,9 @@ const DevNavigation = () => {
             </div>
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-yellow-800 mb-3">Assistant Routes (Planned)</h3>
+              <h3 className="text-lg font-semibold text-yellow-800 mb-3">
+                Assistant Routes (Planned)
+              </h3>
               <ul className="text-sm text-yellow-700 space-y-1">
                 <li>• /assistant/dashboard - Assistant Dashboard</li>
                 <li>• /assistant/tickets - Support Tickets</li>
@@ -163,7 +274,9 @@ const DevNavigation = () => {
 
         {/* Quick Actions */}
         <div className="mt-12 bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Quick Actions</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            Quick Actions
+          </h2>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => handleNavigation('/login')}
@@ -194,10 +307,14 @@ const DevNavigation = () => {
 
         {/* Development Tips */}
         <div className="mt-8 bg-white rounded-lg shadow-sm p-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Development Tips</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            Development Tips
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">Testing Different Roles:</h3>
+              <h3 className="font-semibold text-gray-800 mb-2">
+                Testing Different Roles:
+              </h3>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>1. Login with different user accounts</li>
                 <li>2. Use Redux DevTools to change user role in state</li>
@@ -205,7 +322,9 @@ const DevNavigation = () => {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-800 mb-2">Route Protection Testing:</h3>
+              <h3 className="font-semibold text-gray-800 mb-2">
+                Route Protection Testing:
+              </h3>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>1. Try accessing protected routes without login</li>
                 <li>2. Access routes with wrong user role</li>
@@ -217,9 +336,13 @@ const DevNavigation = () => {
 
         {/* Footer */}
         <div className="mt-8 text-center text-gray-500 text-sm">
-          <p>🔧 Development Mode - Remember to remove this page before production!</p>
+          <p>
+            🔧 Development Mode - Remember to remove this page before
+            production!
+          </p>
           <p className="mt-2">
-            <strong>File Location:</strong> pages/DevNavigation.tsx or components/DevNavigation.tsx
+            <strong>File Location:</strong> pages/DevNavigation.tsx or
+            components/DevNavigation.tsx
           </p>
         </div>
       </div>

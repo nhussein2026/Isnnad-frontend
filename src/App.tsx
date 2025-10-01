@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
@@ -33,7 +32,6 @@ import UserCart from './pages/dashboards/user/UserCart';
 // import ProjectOverview from './pages/dashboards/manager/ProjectOverview';
 // import Reports from './pages/dashboards/manager/Reports';
 
-
 // Programmer Dashboard Pages
 // import ProgrammerHome from './pages/dashboards/programmer/ProgrammerHome';
 // import ProjectManagement from './pages/dashboards/programmer/ProjectManagement';
@@ -67,12 +65,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget-password" element={<ForgetPass />} />
-          <Route path="/dev-nav" element={<DevNavigation   />} />
+          <Route path="/dev-nav" element={<DevNavigation />} />
         </Route>
 
         {/* Admin Dashboard Routes */}
-        <Route 
-          path="/admin/*" 
+        <Route
+          path="/admin/*"
           element={
             <ProtectedRoute>
               <RoleBasedRoute allowedRoles={['admin']}>
@@ -90,8 +88,8 @@ function App() {
         </Route>
 
         {/* User Dashboard Routes */}
-        <Route 
-          path="/user/*" 
+        <Route
+          path="/user/*"
           element={
             <ProtectedRoute>
               <RoleBasedRoute allowedRoles={['user']}>
@@ -109,8 +107,8 @@ function App() {
         </Route>
 
         {/* Manager Dashboard Routes */}
-        <Route 
-          path="/manager/*" 
+        <Route
+          path="/manager/*"
           element={
             <ProtectedRoute>
               <RoleBasedRoute allowedRoles={['manager']}>
@@ -127,11 +125,9 @@ function App() {
           {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
-        
-
         {/* Programmer Dashboard Routes */}
-        <Route 
-          path="/programmer/*" 
+        <Route
+          path="/programmer/*"
           element={
             <ProtectedRoute>
               <RoleBasedRoute allowedRoles={['programmer']}>
@@ -149,8 +145,8 @@ function App() {
         </Route>
 
         {/* Assistant Dashboard Routes */}
-        <Route 
-          path="/assistant/*" 
+        <Route
+          path="/assistant/*"
           element={
             <ProtectedRoute>
               <RoleBasedRoute allowedRoles={['Assistant']}>
@@ -168,13 +164,16 @@ function App() {
         </Route>
 
         {/* Legacy Dashboard Redirect - for backward compatibility */}
-        <Route path="/dashboard" element={<Navigate to="/user/dashboard" replace />} />
+        <Route
+          path="/dashboard"
+          element={<Navigate to="/user/dashboard" replace />}
+        />
 
         {/* 404 Route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      <Toaster 
+      <Toaster
         position="top-right"
         toastOptions={{
           duration: 4000,

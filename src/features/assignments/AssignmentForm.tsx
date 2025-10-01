@@ -1,5 +1,5 @@
 // src/features/assignments/AssignmentForm.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { initialAssignmentForm } from './initialAssignmentForm';
 import { Button } from '../../components/ui/button'; // shadcn
 import { Input } from '../../components/ui/input'; // shadcn

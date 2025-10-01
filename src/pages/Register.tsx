@@ -1,23 +1,23 @@
-import { useState } from "react";
-import "../App.css"
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import logo from "../assets/images/Isnnad-logo-red-white.svg";
-import type { AppDispatch, RootState } from "../redux/store";
-import { registerUser } from "../redux/slices/authSlice";
-import { toast } from "sonner";
-import { User, Mail, Phone, Lock } from "lucide-react";
+import { useState } from 'react';
+import '../App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import logo from '../assets/images/Isnnad-logo-red-white.svg';
+import type { AppDispatch, RootState } from '../redux/store';
+import { registerUser } from '../redux/slices/authSlice';
+import { toast } from 'sonner';
+import { User, Mail, Phone, Lock } from 'lucide-react';
 
 export default function Register() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { loading, error } = useSelector((s: RootState) => s.auth);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const submit = async (e: React.FormEvent) => {
@@ -25,12 +25,12 @@ export default function Register() {
 
     // Local validation
     if (!form.name || !form.email || !form.phone || !form.password) {
-      toast.error("الرجاء ملء جميع الحقول المطلوبة");
+      toast.error('الرجاء ملء جميع الحقول المطلوبة');
       return;
     }
 
     if (form.password !== form.confirmPassword) {
-      toast.error("كلمة المرور وتأكيدها غير متطابقتين");
+      toast.error('كلمة المرور وتأكيدها غير متطابقتين');
       return;
     }
 
@@ -43,10 +43,10 @@ export default function Register() {
           password: form.password,
         })
       ).unwrap();
-      toast.success("تم إنشاء الحساب — يرجى تسجيل الدخول");
-      navigate("/login");
+      toast.success('تم إنشاء الحساب — يرجى تسجيل الدخول');
+      navigate('/login');
     } catch (err: any) {
-      toast.error(err || "فشل في إنشاء الحساب");
+      toast.error(err || 'فشل في إنشاء الحساب');
     }
   };
 
@@ -218,12 +218,12 @@ export default function Register() {
             disabled={loading}
             className="bg-[var(--primary-color)] w-full text-white font-bold flex h-[57px] px-4 py-2 justify-center items-center gap-[10px] self-stretch rounded-[6px]"
           >
-            {loading ? "جارٍ إنشاء الحساب..." : "إنشاء الحساب"}
+            {loading ? 'جارٍ إنشاء الحساب...' : 'إنشاء الحساب'}
           </button>
 
           {/* Link to login */}
           <p className="mt-3 text-sm text-center">
-            لديك حساب بالفعل؟{" "}
+            لديك حساب بالفعل؟{' '}
             <Link to="/login" className="text-sky-600">
               تسجيل الدخول
             </Link>

@@ -1,18 +1,18 @@
-// components/dashboard/headers/AsistaantHeader.jsx
+// components/dashboard/headers/ProgrammerHeader.jsx
 import { useState } from 'react';
 import { Menu, Bell, Sun, Moon } from 'lucide-react';
 
-interface AsistantHeaderProps {
+interface ProgrammerHeaderProps {
   toggleSidebar: () => void;
   toggleDarkMode: () => void;
   isDarkMode: boolean;
 }
 
-const AsistantHeader = ({
+const ProgrammerHeader = ({
   toggleSidebar,
   toggleDarkMode,
   isDarkMode,
-}: AsistantHeaderProps) => {
+}: ProgrammerHeaderProps) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   const notifications = [
@@ -130,4 +130,4 @@ const AsistantHeader = ({
   );
 };
 
-export default AsistantHeader;
+export default ProgrammerHeader;

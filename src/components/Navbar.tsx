@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <header className="w-full  bg-[var(--bg-primary)] shadow-sm">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
-         {/* Left side btns */}
+        {/* Left side btns */}
         <div className="flex items-center gap-4">
           <Link
             to="/login"
@@ -24,7 +24,7 @@ export default function Navbar() {
           >
             إنشاء حساب
           </Link>
-          
+
           {/* Mobile Menu Button */}
           <button
             className="md:hidden text-gray-700"
@@ -40,54 +40,66 @@ export default function Navbar() {
             الرئيسية
           </Link>
           <Link to="/#about" className="text-gray-700 hover:text-primary">
-           عن المنصة 
+            عن المنصة
           </Link>
-          <Link to="/#our-services" className="text-gray-700 hover:text-primary">
+          <Link
+            to="/#our-services"
+            className="text-gray-700 hover:text-primary"
+          >
             خدماتنا
           </Link>
-          <Link to="/#our-customers-opinions" className="text-gray-700 hover:text-primary">
+          <Link
+            to="/#our-customers-opinions"
+            className="text-gray-700 hover:text-primary"
+          >
             آراء العملاء
           </Link>
           <Link to="/#apply-now" className="text-gray-700 hover:text-primary">
-            قدم الآن 
-          </Link> 
+            قدم الآن
+          </Link>
         </nav>
 
-       {/* Logo */}
+        {/* Logo */}
         <Link to="/" aria-label="Home">
           <img
             src={logo}
             alt="Website Logo"
             className="w-[83.228px] aspect-[83.23/48] self-stretch object-cover"
           />
-       </Link>
+        </Link>
       </div>
 
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden bg-white border-t">
           <nav className="flex flex-col space-y-2 p-4">
-             <Link to="/" className="text-gray-700 hover:text-primary">
-            الرئيسية
-          </Link>
-          <Link to="/#about" className="text-gray-700 hover:text-primary">
-           عن المنصة 
-          </Link>
-          <Link to="/#our-services" className="text-gray-700 hover:text-primary">
-            خدماتنا
-          </Link>
-          <Link to="/#our-customers-opinions" className="text-gray-700 hover:text-primary">
-            آراء العملاء
-          </Link>
-          <Link to="/#apply-now" className="text-gray-700 hover:text-primary">
-            قدم الآن 
-          </Link> 
-           <Link to="/login" className="text-gray-700 hover:text-primary">
-            تسجيل الدخول
-          </Link>
-          <Link to="/signup" className="text-gray-700 hover:text-primary">
-            إنشاء حساب
-          </Link>
+            <Link to="/" className="text-gray-700 hover:text-primary">
+              الرئيسية
+            </Link>
+            <Link to="/#about" className="text-gray-700 hover:text-primary">
+              عن المنصة
+            </Link>
+            <Link
+              to="/#our-services"
+              className="text-gray-700 hover:text-primary"
+            >
+              خدماتنا
+            </Link>
+            <Link
+              to="/#our-customers-opinions"
+              className="text-gray-700 hover:text-primary"
+            >
+              آراء العملاء
+            </Link>
+            <Link to="/#apply-now" className="text-gray-700 hover:text-primary">
+              قدم الآن
+            </Link>
+            <Link to="/login" className="text-gray-700 hover:text-primary">
+              تسجيل الدخول
+            </Link>
+            <Link to="/signup" className="text-gray-700 hover:text-primary">
+              إنشاء حساب
+            </Link>
           </nav>
         </div>
       )}

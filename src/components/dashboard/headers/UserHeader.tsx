@@ -1,18 +1,17 @@
-// components/dashboard/headers/AsistaantHeader.jsx
+// components/dashboard/headers/UserHeader.jsx
 import { useState } from 'react';
 import { Menu, Bell, Sun, Moon } from 'lucide-react';
-
-interface AsistantHeaderProps {
+interface UserHeaderProps {
   toggleSidebar: () => void;
   toggleDarkMode: () => void;
   isDarkMode: boolean;
 }
 
-const AsistantHeader = ({
+const UserHeader = ({
   toggleSidebar,
   toggleDarkMode,
   isDarkMode,
-}: AsistantHeaderProps) => {
+}: UserHeaderProps) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   const notifications = [
@@ -130,4 +129,4 @@ const AsistantHeader = ({
   );
 };
 
-export default AsistantHeader;
+export default UserHeader;

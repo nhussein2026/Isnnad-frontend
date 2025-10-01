@@ -167,7 +167,7 @@ export default function Login() {
           </button>
 
           <p className="mt-3 text-sm text-center">
-           ليس لديك حساب؟!  {' '}
+            ليس لديك حساب؟!{' '}
             <Link to="/register" className="text-sky-600">
               قم بإنشاء حسابك الآن
             </Link>

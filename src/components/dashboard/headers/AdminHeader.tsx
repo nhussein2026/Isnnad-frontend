@@ -1,19 +1,20 @@
-// components/dashboard/headers/AsistaantHeader.jsx
+// components/dashboard/headers/AdminHeader.jsx
 import { useState } from 'react';
-import { Menu, Bell, Sun, Moon } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/types/user';
 
-interface AsistantHeaderProps {
+interface AdminHeaderProps {
   toggleSidebar: () => void;
   toggleDarkMode: () => void;
   isDarkMode: boolean;
 }
-
-const AsistantHeader = ({
-  toggleSidebar,
-  toggleDarkMode,
-  isDarkMode,
-}: AsistantHeaderProps) => {
+const AdminHeader = ({ toggleSidebar }: AdminHeaderProps) => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  //first letter of user name
+  const firstLetter = user?.name?.[0]?.toUpperCase() || '?';
 
   const notifications = [
     {
@@ -37,13 +38,13 @@ const AsistantHeader = ({
   ];
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-md py-4 px-6">
+    <header className="bg-gray-200 shadow-md py-4 px-6">
       <div className="flex items-center justify-between">
         {/* Left side - Menu button and Search */}
         <div className="flex items-center space-x-4 space-x-reverse">
           <button
             onClick={toggleSidebar}
-            className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="p-2 rounded-md text-black  hover:bg-gray-100 transition-colors duration-200"
           >
             <Menu size={24} />
           </button>
@@ -51,18 +52,11 @@ const AsistantHeader = ({
 
         {/* Right side - Dark mode, Notifications and Profile */}
         <div className="flex items-center space-x-4 space-x-reverse">
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-          >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-
           {/* Notification icon with dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative"
+              className="p-2 rounded-full text-gray-700  hover:bg-gray-100 transition-colors duration-200 relative"
             >
               <Bell size={20} />
               <span className="absolute top-0 left-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -71,8 +65,8 @@ const AsistantHeader = ({
             </button>
 
             {isNotificationsOpen && (
-              <div className="absolute left-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-10">
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="absolute left-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                <div className="p-4 border-b border-gray-200">
                   <h3 className="font-bold text-gray-800 dark:text-white">
                     الإشعارات
                   </h3>
@@ -82,24 +76,24 @@ const AsistantHeader = ({
                     <a
                       key={notification.id}
                       href="#"
-                      className="block p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                      className="block p-4 border-b border-gray-100 hover:bg-gray-50"
                     >
-                      <p className="font-medium text-gray-800 dark:text-white">
+                      <p className="font-medium text-gray-800">
                         {notification.title}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-500">
                         {notification.description}
                       </p>
-                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                      <p className="text-xs text-gray-400">
                         {notification.time}
                       </p>
                     </a>
                   ))}
                 </div>
-                <div className="p-2 border-t border-gray-200 dark:border-gray-700 text-center">
+                <div className="p-2 border-t border-gray-200 text-center">
                   <a
                     href="#"
-                    className="block py-2 text-blue-600 dark:text-blue-400 hover:underline"
+                    className="block py-2 text-blue-600 hover:underline"
                   >
                     عرض جميع الإشعارات
                   </a>
@@ -110,17 +104,22 @@ const AsistantHeader = ({
 
           {/* Profile */}
           <div className="flex items-center">
-            <img
-              src="https://randomuser.me/api/portraits/men/1.jpg"
-              alt="Profile"
-              className="w-10 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600"
-            />
+            {user?.avatar && !imageError ? (
+              <img
+                src={user?.avatar}
+                alt="Profile"
+                onError={() => setImageError(true)}
+                className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-700 font-semibold text-sm">
+                {firstLetter}
+              </div>
+            )}
             <div className="mr-2 hidden md:block">
-              <p className="text-sm font-medium text-gray-800 dark:text-white">
-                محمد أحمد
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                مدير النظام
+              <p className="text-sm font-medium text-gray-800">{user?.name}</p>
+              <p className="text-xs text-gray-500">
+                {user?.role || 'مدير النظام'}
               </p>
             </div>
           </div>
@@ -130,4 +129,4 @@ const AsistantHeader = ({
   );
 };
 
-export default AsistantHeader;
+export default AdminHeader;

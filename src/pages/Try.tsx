@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logo from '../assets/images/Isnnad-logo-red-white.svg';
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
