@@ -1,11 +1,11 @@
-import Header from '../components/homePage/Header';
-import HeroSection from '../components/HeroSection';
+import Header from "../components/homePage/Header";
+
+
 
 export default function Home() {
   return (
-    <div>
+    <div className="w-full">
       <Header />
-      <HeroSection />
     </div>
   );
 }
