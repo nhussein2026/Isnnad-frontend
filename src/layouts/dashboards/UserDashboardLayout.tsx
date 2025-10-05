@@ -1,8 +1,8 @@
 // layouts/dashboards/UserDashboardLayout.jsx
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import AdminSidebar from '../../components/dashboard/sidebars/AdminSidebar';
-import AdminHeader from '../../components/dashboard/headers/AdminHeader';
+import UserSidebar from '../../components/dashboard/sidebars/UserSidebar';
+import UserHeader from '../../components/dashboard/headers/UserHeader';
 
 const UserDashboardLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -21,7 +21,7 @@ const UserDashboardLayout = () => {
     <div className={`min-h-screen flex ${isDarkMode ? 'dark' : ''}`}>
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <AdminHeader
+        <UserHeader
           toggleSidebar={toggleSidebar}
           toggleDarkMode={toggleDarkMode}
           isDarkMode={isDarkMode}
@@ -33,7 +33,7 @@ const UserDashboardLayout = () => {
       </div>
 
       {/* Sidebar */}
-      <AdminSidebar
+      <UserSidebar
         isCollapsed={isSidebarCollapsed}
         toggleSidebar={toggleSidebar}
       />

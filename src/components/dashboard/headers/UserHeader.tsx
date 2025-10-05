@@ -1,6 +1,8 @@
 // components/dashboard/headers/UserHeader.jsx
 import { useState } from 'react';
 import { Menu, Bell, Sun, Moon } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 interface UserHeaderProps {
   toggleSidebar: () => void;
   toggleDarkMode: () => void;
@@ -13,6 +15,10 @@ const UserHeader = ({
   isDarkMode,
 }: UserHeaderProps) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [imageError, setImageError] = useState(false);
+  const firstLetter = user?.name?.[0]?.toUpperCase() || '?';
+
 
   const notifications = [
     {
@@ -107,19 +113,24 @@ const UserHeader = ({
             )}
           </div>
 
-          {/* Profile */}
+         {/* Profile */}
           <div className="flex items-center">
-            <img
-              src="https://randomuser.me/api/portraits/men/1.jpg"
-              alt="Profile"
-              className="w-10 h-10 rounded-full border-2 border-gray-300 dark:border-gray-600"
-            />
+            {user?.avatar && !imageError ? (
+              <img
+                src={user?.avatar}
+                alt="Profile"
+                onError={() => setImageError(true)}
+                className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover"
+              />
+            ) : (
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-700 font-semibold text-sm">
+                {firstLetter}
+              </div>
+            )}
             <div className="mr-2 hidden md:block">
-              <p className="text-sm font-medium text-gray-800 dark:text-white">
-                محمد أحمد
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                مدير النظام
+              <p className="text-sm font-medium text-gray-800">{user?.name}</p>
+              <p className="text-xs text-gray-500">
+                {user?.role || 'مدير النظام'}
               </p>
             </div>
           </div>

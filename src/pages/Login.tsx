@@ -24,7 +24,9 @@ export default function Login() {
         navigate('/admin/dashboard');
       } else if (role === 'manager') {
         navigate('/manager/dashboard');
-      } else {
+      } else if (role === 'user'){
+        navigate('/user/dashboard')
+      } else{
         navigate('/dashboard'); // default for regular users
       }
     } catch (err: unknown) {
