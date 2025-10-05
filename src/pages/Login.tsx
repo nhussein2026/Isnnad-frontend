@@ -39,7 +39,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-white p-4 relative overflow-hidden">
       {/* Top-left SVG icon - Page level */}
       <div className="absolute top-0 right-0 m-0 opacity-80">
         <svg

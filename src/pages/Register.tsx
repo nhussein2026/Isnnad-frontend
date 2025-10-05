@@ -51,9 +51,9 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4 relative overflow-hidden">
+    <div className="min-h-5/6 flex items-center justify-center bg-white relative overflow-hidden">
       {/* Top-left SVG */}
-      <div className="absolute top-0 left-0 m-0 opacity-80">
+      <div className="absolute top-0 left-0 m-0 opacity-80 ">
         <svg
           width="238"
           height="240"
@@ -99,15 +99,14 @@ export default function Register() {
 
         {/* Title */}
         <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
-          إنشاء حساب جديد
+          إنشاء حساب
         </h1>
-        <p className="text-gray-600 text-center mb-8">
-          يرجى إدخال بياناتك لإنشاء حساب
-        </p>
+        <span className="block border-b border-b-[#94A3B84D] my-4 p-2" />
+
 
         <form onSubmit={submit} className="space-y-5">
           {/* Name */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col">
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               الاسم الكامل
             </label>
@@ -124,7 +123,7 @@ export default function Register() {
           </div>
 
           {/* Email */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col">
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               البريد الإلكتروني
             </label>
@@ -142,18 +141,24 @@ export default function Register() {
           </div>
 
           {/* Phone with Country Code */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col">
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               رقم الهاتف
             </label>
             <div className="relative w-full flex items-center">
               {/* Country Code with Flag */}
-              <div className="flex items-center justify-center w-24 pr-2 pl-2 py-2 border border-slate-300 bg-gray-200 rounded-l gap-2">
-                <img
-                  src="https://flagcdn.com/16x12/om.png"
-                  alt="Oman Flag"
-                  className="w-5 h-5 object-cover rounded-sm"
-                />
+              <div className="flex items-center justify-center w-24 h-10.5 pr-2 pl-2 py-2 border border-slate-300 bg-gray-200 rounded-l gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="37" height="29" viewBox="0 0 37 29" fill="none">
+                  <g clip-path="url(#clip0_479_1402)">
+                    <path d="M0 0.594971H37V28.595H0V0.594971Z" fill="#8D1B3D"/>
+                    <path d="M0 0.594971V28.595H9.1575L14.8116 27.0375L9.1575 25.4858L14.8058 23.9283L9.1575 22.3708L14.8058 20.8191L9.1575 19.2616L14.8116 17.7041L9.1575 16.1525L14.8058 14.595L9.1575 13.0375L14.8058 11.4858L9.1575 9.9283L14.8116 8.3708L9.1575 6.81914L14.8058 5.26164L9.1575 3.70414L14.8116 2.15247L9.15172 0.594971H0Z" fill="white"/>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_479_1402">
+                      <rect width="37" height="28" fill="white" transform="translate(0 0.594971)"/>
+                    </clipPath>
+                  </defs>
+                </svg>
                 <span className="text-gray-700 font-medium">+968</span>
               </div>
               {/* Phone Number */}
@@ -172,7 +177,7 @@ export default function Register() {
           </div>
 
           {/* Password */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col">
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               كلمة المرور
             </label>
@@ -190,7 +195,7 @@ export default function Register() {
           </div>
 
           {/* Confirm Password */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col">
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               تأكيد كلمة المرور
             </label>
@@ -216,7 +221,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[var(--primary-color)] w-full text-white font-bold flex h-[57px] px-4 py-2 justify-center items-center gap-[10px] self-stretch rounded-[6px]"
+            className="bg-[var(--primary-color)] w-full text-white font-bold flex h-[48px] px-4 py-2 justify-center items-center gap-[10px] self-stretch rounded-[6px]"
           >
             {loading ? 'جارٍ إنشاء الحساب...' : 'إنشاء الحساب'}
           </button>

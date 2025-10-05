@@ -97,7 +97,7 @@ export default function Navbar() {
             <Link to="/login" className="text-gray-700 hover:text-primary">
               تسجيل الدخول
             </Link>
-            <Link to="/signup" className="text-gray-700 hover:text-primary">
+            <Link to="/register" className="text-gray-700 hover:text-primary">
               إنشاء حساب
             </Link>
           </nav>
