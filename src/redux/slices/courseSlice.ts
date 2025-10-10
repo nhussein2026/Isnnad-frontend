@@ -40,7 +40,7 @@ export const addCourse = createAsyncThunk(
   'courses/addCourse',
   async (courseData: { name: string; image: string }, { rejectWithValue }) => {
     try {
-      const response = await api.post('/courses', courseData);
+      const response = await api.post('/courses/add', courseData);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(

@@ -6,25 +6,19 @@ import UserHeader from '../../components/dashboard/headers/UserHeader';
 
 const UserDashboardLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
-  };
+
 
   return (
-    <div className={`min-h-screen flex ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen flex `}>
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0">
         <UserHeader
           toggleSidebar={toggleSidebar}
-          toggleDarkMode={toggleDarkMode}
-          isDarkMode={isDarkMode}
         />
 
         <main className="flex-1 p-6 bg-gray-200  overflow-auto">

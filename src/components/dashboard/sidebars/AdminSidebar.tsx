@@ -78,9 +78,9 @@ const AdminSidebar = ({ isCollapsed, toggleSidebar }: AdminSidebarProps) => {
     },
     {
       id: 5,
-      name: 'المحتوى',
+      name: 'المهام',
       icon: FileText,
-      href: '/admin/content',
+      href: '/admin/tasks',
       action: null,
     },
     {

@@ -54,6 +54,7 @@ import DevNavigation from './pages/DevNavigation';
 import AssistantDashboardLayout from './layouts/dashboards/AssistantDashboardLayout';
 import UserTask from './pages/dashboards/user/UserTask';
 import CourseManagement from './pages/dashboards/admin/CourseManagement';
+import TasksManagement from './pages/dashboards/admin/TasksManagement';
 
 function App() {
   return (
@@ -87,7 +88,7 @@ function App() {
           <Route path="system-settings" element={<SystemSettings />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="courses" element={<CourseManagement />} />
-          {/* <Route path="settings" element={<SettingsPage />} /> */}
+          <Route path="tasks" element={<TasksManagement />} />
         </Route>
 
         {/* User Dashboard Routes */}

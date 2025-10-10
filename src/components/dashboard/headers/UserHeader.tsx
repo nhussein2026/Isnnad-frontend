@@ -1,19 +1,13 @@
 // components/dashboard/headers/UserHeader.jsx
 import { useState } from 'react';
-import { Menu, Bell, Sun, Moon } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 interface UserHeaderProps {
   toggleSidebar: () => void;
-  toggleDarkMode: () => void;
-  isDarkMode: boolean;
 }
 
-const UserHeader = ({
-  toggleSidebar,
-  toggleDarkMode,
-  isDarkMode,
-}: UserHeaderProps) => {
+const UserHeader = ({ toggleSidebar }: UserHeaderProps) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
   const [imageError, setImageError] = useState(false);
@@ -41,13 +35,13 @@ const UserHeader = ({
   ];
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-md py-4 px-6">
+    <header className="bg-white shadow-md py-4 px-6">
       <div className="flex items-center justify-between">
         {/* Left side - Menu button and Search */}
         <div className="flex items-center space-x-4 space-x-reverse">
           <button
             onClick={toggleSidebar}
-            className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 transition-colors duration-200"
           >
             <Menu size={24} />
           </button>
@@ -55,18 +49,11 @@ const UserHeader = ({
 
         {/* Right side - Dark mode, Notifications and Profile */}
         <div className="flex items-center space-x-4 space-x-reverse">
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-          >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-
           {/* Notification icon with dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative"
+              className="p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 -700 transition-colors duration-200 relative"
             >
               <Bell size={20} />
               <span className="absolute top-0 left-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -75,8 +62,8 @@ const UserHeader = ({
             </button>
 
             {isNotificationsOpen && (
-              <div className="absolute left-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-10">
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="absolute left-0 mt-2 w-80 bg-white dag-gray-800 rounded-lg shadow-lg border border-gray-200 z-10">
+                <div className="p-4 border-b border-gray-200 dar0">
                   <h3 className="font-bold text-gray-800 dark:text-white">
                     الإشعارات
                   </h3>
@@ -86,7 +73,7 @@ const UserHeader = ({
                     <a
                       key={notification.id}
                       href="#"
-                      className="block p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                      className="block p-4 border-b border-gray-100 hover:bg-gray-50"
                     >
                       <p className="font-medium text-gray-800 dark:text-white">
                         {notification.title}
@@ -100,7 +87,7 @@ const UserHeader = ({
                     </a>
                   ))}
                 </div>
-                <div className="p-2 border-t border-gray-200 dark:border-gray-700 text-center">
+                <div className="p-2 border-t border-gray-200 text-center">
                   <a
                     href="#"
                     className="block py-2 text-blue-600 dark:text-blue-400 hover:underline"
