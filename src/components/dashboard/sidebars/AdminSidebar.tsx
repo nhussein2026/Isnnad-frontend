@@ -5,7 +5,6 @@ import {
   Home,
   Users,
   Settings,
-  BarChart3,
   CreditCard,
   FileText,
   HelpCircle,
@@ -71,17 +70,10 @@ const AdminSidebar = ({ isCollapsed, toggleSidebar }: AdminSidebarProps) => {
       action: null,
     },
     {
-      id: 3,
-      name: 'التقارير',
-      icon: BarChart3,
-      href: '/admin/analytics',
-      action: null,
-    },
-    {
       id: 4,
-      name: 'المدفوعات',
+      name: 'المواد',
       icon: CreditCard,
-      href: '/admin/payments',
+      href: '/admin/courses',
       action: null,
     },
     {
@@ -103,13 +95,6 @@ const AdminSidebar = ({ isCollapsed, toggleSidebar }: AdminSidebarProps) => {
       name: 'المساعدة',
       icon: HelpCircle,
       href: '/admin/help',
-      action: null,
-    },
-    {
-      id: 7,
-      name: 'NNNNNNNNNNNNNNN',
-      icon: HelpCircle,
-      href: '/admin/n101s',
       action: null,
     },
     {

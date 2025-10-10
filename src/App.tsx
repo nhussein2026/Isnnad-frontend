@@ -52,6 +52,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import RoleBasedRoute from './components/RoleBasedRoute';
 import DevNavigation from './pages/DevNavigation';
 import AssistantDashboardLayout from './layouts/dashboards/AssistantDashboardLayout';
+import UserTask from './pages/dashboards/user/UserTask';
+import CourseManagement from './pages/dashboards/admin/CourseManagement';
 
 function App() {
   return (
@@ -84,6 +86,7 @@ function App() {
           <Route path="users" element={<UserManagement />} />
           <Route path="system-settings" element={<SystemSettings />} />
           <Route path="analytics" element={<Analytics />} />
+          <Route path="courses" element={<CourseManagement />} />
           {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 
@@ -103,6 +106,8 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
           <Route path="courses" element={<UserCourses />} />
           <Route path="cart" element={<UserCart />} />
+          <Route path="task" element={<UserTask />} />
+
           {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>
 

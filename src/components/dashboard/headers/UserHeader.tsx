@@ -19,7 +19,6 @@ const UserHeader = ({
   const [imageError, setImageError] = useState(false);
   const firstLetter = user?.name?.[0]?.toUpperCase() || '?';
 
-
   const notifications = [
     {
       id: 1,
@@ -113,7 +112,7 @@ const UserHeader = ({
             )}
           </div>
 
-         {/* Profile */}
+          {/* Profile */}
           <div className="flex items-center">
             {user?.avatar && !imageError ? (
               <img

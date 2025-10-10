@@ -53,7 +53,7 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
       toast.error('حدث خطأ أثناء تسجيل الخروج');
     }
   };
-const menuItems: MenuItem[] = [
+  const menuItems: MenuItem[] = [
     {
       id: 1,
       name: 'لوحة التحكم',
@@ -77,16 +77,16 @@ const menuItems: MenuItem[] = [
     },
     {
       id: 4,
-      name: 'المدفوعات',
+      name: 'طلب مهمة',
       icon: CreditCard,
-      href: '/user/payments',
+      href: '/user/task',
       action: null,
     },
     {
       id: 5,
-      name: 'المحتوى',
+      name: 'ملفي الشخصي',
       icon: FileText,
-      href: '/user/content',
+      href: '/user/profile',
       action: null,
     },
     {
@@ -103,7 +103,7 @@ const menuItems: MenuItem[] = [
       href: '/user/help',
       action: null,
     },
-  
+
     {
       id: 8,
       name: 'تسجيل الخروج',
@@ -113,7 +113,7 @@ const menuItems: MenuItem[] = [
       className: 'text-red-300 hover:text-red-900 hover:bg-red-800/20',
     },
   ];
-    const renderMenuItem = (item: MenuItem) => {
+  const renderMenuItem = (item: MenuItem) => {
     const isActive = item.href && location.pathname === item.href;
     const baseClasses = `flex items-center justify-end p-3 rounded-lg transition-colors duration-200 group ${
       isActive ? 'bg-blue-800 text-white' : 'hover:bg-gray-400 hover:text-white'
@@ -207,7 +207,7 @@ const menuItems: MenuItem[] = [
         </ul>
       </nav>
 
-     {/* Sidebar Footer */}
+      {/* Sidebar Footer */}
       <div className="p-4 border-t border-blue-800">
         <div
           className={`flex items-center ${

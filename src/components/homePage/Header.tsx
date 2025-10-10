@@ -1,16 +1,15 @@
-
 import illustration from '../../assets/images/Research paper-amico.svg'; // ضع مسار الرسم التوضيحي هنا
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
-  const phrases = ["فيديو", "عرض تقديمي", "مشروع", "بحث علمي"];
+  const phrases = ['فيديو', 'عرض تقديمي', 'مشروع', 'بحث علمي'];
   const typingSpeed = 100; // سرعة كتابة الحروف
   const erasingSpeed = 50; // سرعة مسح الحروف
   const delayBeforeErase = 1000; // الانتظار بعد اكتمال النص قبل المسح
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
+  const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [charIndex, setCharIndex] = useState(0);
 
@@ -23,7 +22,10 @@ export default function Header() {
         setCharIndex((prev) => prev + 1);
         setDisplayedText(phrases[currentPhraseIndex].slice(0, charIndex + 1));
       }, typingSpeed);
-    } else if (!isDeleting && charIndex === phrases[currentPhraseIndex].length) {
+    } else if (
+      !isDeleting &&
+      charIndex === phrases[currentPhraseIndex].length
+    ) {
       // انتظر قبل البدء بالمسح
       timeout = setTimeout(() => {
         setIsDeleting(true);
@@ -49,11 +51,11 @@ export default function Header() {
       <div className="w-full md:w-1/2 flex flex-col items-center md:items-end justify-center mt-6 md:mt-0 text-center md:text-right md:px-10 md:pr-17 px-4">
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-6 leading-relaxed">
           <span className="text-[#8d1b3d]">منصة أسناد</span> تساعدك في الوصول
-          إلى هدفك من خلال مساعدتك في إنجاز مهامك مهما كانت{" "}
+          إلى هدفك من خلال مساعدتك في إنجاز مهامك مهما كانت{' '}
           <span className="inline-block w-[2px] md:h-8 h-6 bg-[#8d1b3d] ml-1 animate-blink"></span>
           <span className="text-[#8d1b3d]">{displayedText}</span>
         </h1>
-        <Link to={"/register"}>
+        <Link to={'/register'}>
           <button className="bg-[#8d1b3d] text-white px-5 py-2.5 rounded-lg hover:bg-[#ac224b] transition cursor-pointer">
             ابدأ الآن
           </button>
@@ -69,13 +71,10 @@ export default function Header() {
         />
       </div>
 
-         {/* زر التمرير للأسفل */}
-        <button
-        
-          className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-[#8d1b3d] text-white p-3 rounded-full shadow-lg hover:bg-[#ac224b] transition animate-bounce cursor-pointer"
-        >
-          ⬇
-        </button>
+      {/* زر التمرير للأسفل */}
+      <button className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-[#8d1b3d] text-white p-3 rounded-full shadow-lg hover:bg-[#ac224b] transition animate-bounce cursor-pointer">
+        ⬇
+      </button>
 
       {/* TailwindCSS animation للـ Cursor */}
       <style>
