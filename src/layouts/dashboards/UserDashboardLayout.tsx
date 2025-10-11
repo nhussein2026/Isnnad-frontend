@@ -11,15 +11,11 @@ const UserDashboardLayout = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
-
-
   return (
     <div className={`min-h-screen flex `}>
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <UserHeader
-          toggleSidebar={toggleSidebar}
-        />
+        <UserHeader toggleSidebar={toggleSidebar} />
 
         <main className="flex-1 p-6 bg-gray-200  overflow-auto">
           <Outlet />
