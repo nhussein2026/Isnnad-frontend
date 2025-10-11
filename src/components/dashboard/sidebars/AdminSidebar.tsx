@@ -7,7 +7,6 @@ import {
   Settings,
   CreditCard,
   FileText,
-  HelpCircle,
   LogOut,
   ChevronRight,
   ChevronLeft,
@@ -88,13 +87,6 @@ const AdminSidebar = ({ isCollapsed, toggleSidebar }: AdminSidebarProps) => {
       name: 'الإعدادات',
       icon: Settings,
       href: '/admin/settings',
-      action: null,
-    },
-    {
-      id: 7,
-      name: 'المساعدة',
-      icon: HelpCircle,
-      href: '/admin/help',
       action: null,
     },
     {
