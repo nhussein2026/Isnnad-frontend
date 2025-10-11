@@ -1,4 +1,4 @@
-import { FaStar } from 'react-icons/fa';
+import { Star } from 'lucide-react';
 
 type Review = {
   name: string;
@@ -19,9 +19,9 @@ export function ReviewsCard({ item }: { item: Review }) {
           <span className="text-[#7b1d25] font-semibold">{item.name}</span>
           <div className="flex flex-row-reverse">
             {[1, 2, 3, 4, 5].map((star) => (
-              <FaStar
+              <Star
                 key={star}
-                className={`text-xl ${star <= item.rating ? 'text-[#1B8D6B]' : 'text-gray-300'}`}
+                className={`w-5 h-5 ${star <= item.rating ? 'text-[#1B8D6B] fill-[#1B8D6B]' : 'text-gray-300'}`}
               />
             ))}
           </div>
