@@ -1,4 +1,4 @@
-import { FaStar } from "react-icons/fa";
+import { FaStar } from 'react-icons/fa';
 
 type Review = {
   name: string;
@@ -21,12 +21,16 @@ export function ReviewsCard({ item }: { item: Review }) {
             {[1, 2, 3, 4, 5].map((star) => (
               <FaStar
                 key={star}
-                className={`text-xl ${star <= item.rating ? "text-[#1B8D6B]" : "text-gray-300"}`}
+                className={`text-xl ${star <= item.rating ? 'text-[#1B8D6B]' : 'text-gray-300'}`}
               />
             ))}
           </div>
         </div>
-        <img src={item.image} alt="profile" className="w-10 h-10 rounded-full" />
+        <img
+          src={item.image}
+          alt="profile"
+          className="w-10 h-10 rounded-full"
+        />
       </div>
     </div>
   );
