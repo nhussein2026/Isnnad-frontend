@@ -1,4 +1,4 @@
-import { Phone, Mail, MessageCircle, Copyright } from "lucide-react";
+import { Phone, Mail, MessageCircle, Copyright } from 'lucide-react';
 
 export default function Footer() {
   return (
