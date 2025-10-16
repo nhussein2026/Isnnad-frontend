@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { saveAuth, clearAuth, getToken, getStoredUser } from '../../lib/auth';
 import api from '../../lib/axios';
 import type { IUser } from '../../types/user';
+import { normalizeUser } from '../../lib/utils';
 
 interface AuthState {
   user: IUser | null;
@@ -24,7 +25,7 @@ export const loginUser = createAsyncThunk(
     try {
       const res = await api.post('/auth/login', credentials);
       const token: string = res.data.token;
-      const user: IUser = res.data.user;
+      const user: IUser = normalizeUser(res.data.user);
       saveAuth(token, user);
       return { token, user };
     } catch (err: any) {

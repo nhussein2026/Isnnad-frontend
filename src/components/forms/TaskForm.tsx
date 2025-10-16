@@ -39,7 +39,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
     type: initialData?.type || 'homework',
     description: initialData?.description || '',
     timeToComplete: initialData?.timeToComplete || 60,
-    status: initialData?.status || 'in_progress',
     attachments: initialData?.attachments ?? ([] as string[]),
     additionalInfo: initialData?.additionalInfo || '',
   });
@@ -52,6 +51,17 @@ const TaskForm: React.FC<TaskFormProps> = ({
     >
   ) => {
     const { name, value } = e.target;
+
+        // course selection handling
+    if (name === 'course') {
+      const selectedCourse = courses.find((course) => course._id === value);
+      setFormData((prev) => ({
+        ...prev,
+        course: selectedCourse || ({} as ICourse),
+      }));
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -87,6 +97,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+    console.log('Submitted Data:', formData);
   };
 
   return (

@@ -1,10 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as taskApi from '../../lib/taskApi';
+import { ITask } from '../../types/task';
 
-export const fetchTasks = createAsyncThunk('tasks/fetchAll', async () => {
-  const { data } = await taskApi.getTasks();
-  return data.tasks;
-});
+export const fetchTasks = createAsyncThunk<ITask[]>(
+  'tasks/fetchAll',
+  async () => {
+    const { data } = await taskApi.getTasks();
+    console.log('this is tasks data', data.tasks);
+    return data.tasks;
+  }
+);
 
 export const addTask = createAsyncThunk('tasks/add', async (taskData: any) => {
   const { data } = await taskApi.createTask(taskData);
@@ -30,7 +35,7 @@ export const removeTask = createAsyncThunk(
 const taskSlice = createSlice({
   name: 'tasks',
   initialState: {
-    items: [] as any[],
+    items: [] as ITask[],
     loading: false,
     error: null as string | null,
   },

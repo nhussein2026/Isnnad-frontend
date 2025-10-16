@@ -67,6 +67,13 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
       action: null,
     },
     {
+      id: 3,
+      name: 'مهامي',
+      icon: Users,
+      href: '/user/my-tasks',
+      action: null,
+    },
+    {
       id: 4,
       name: 'طلب مهمة',
       icon: CreditCard,

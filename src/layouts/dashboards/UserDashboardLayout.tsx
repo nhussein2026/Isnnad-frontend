@@ -17,7 +17,7 @@ const UserDashboardLayout = () => {
       <div className="flex-1 flex flex-col min-w-0">
         <UserHeader toggleSidebar={toggleSidebar} />
 
-        <main className="flex-1 p-6 bg-gray-200  overflow-auto">
+        <main className="flex-1 p-6  overflow-auto">
           <Outlet />
         </main>
       </div>
