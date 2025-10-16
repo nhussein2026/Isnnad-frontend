@@ -37,7 +37,7 @@ const SiteStatus = () => {
   ];
 
   return (
-    <div className="space-y-6 [direction:rtl]">
+    <div className="space-y-6 mb-15 [direction:rtl]">
       <h2 className="text-2xl font-semibold text-gray-800">حالة الموقع</h2>
       <hr className="text-gray-300 mb-10" />
 
