@@ -55,6 +55,7 @@ import AssistantDashboardLayout from './layouts/dashboards/AssistantDashboardLay
 import UserTask from './pages/dashboards/user/UserTask';
 import CourseManagement from './pages/dashboards/admin/CourseManagement';
 import TasksManagement from './pages/dashboards/admin/TasksManagement';
+import AdminProfile from './pages/dashboards/admin/AdminProfile';
 
 function App() {
   return (
@@ -89,6 +90,7 @@ function App() {
           <Route path="analytics" element={<Analytics />} />
           <Route path="courses" element={<CourseManagement />} />
           <Route path="tasks" element={<TasksManagement />} />
+          <Route path="profile" element={<AdminProfile />} />
         </Route>
 
         {/* User Dashboard Routes */}
@@ -107,7 +109,7 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
           <Route path="courses" element={<UserCourses />} />
           <Route path="cart" element={<UserCart />} />
-          <Route path="task" element={<UserTask />} />
+          <Route path="new-task" element={<UserTask />} />
 
           {/* <Route path="settings" element={<SettingsPage />} /> */}
         </Route>

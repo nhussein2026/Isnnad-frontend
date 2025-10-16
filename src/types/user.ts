@@ -1,3 +1,5 @@
+import { ICourse } from './course';
+
 export interface IUser {
   _id: string;
   name: string;
@@ -5,10 +7,10 @@ export interface IUser {
   phone: string;
   username: string;
   password: string;
-  avatar?: string;
+  profilePic?: string;
   referralCode?: string;
   referredBy?: string;
-  subjects: object[];
+  courses: ICourse[];
   role:
     | 'student'
     | 'admin'

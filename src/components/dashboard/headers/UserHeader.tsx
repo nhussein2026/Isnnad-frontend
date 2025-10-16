@@ -101,9 +101,9 @@ const UserHeader = ({ toggleSidebar }: UserHeaderProps) => {
 
           {/* Profile */}
           <div className="flex items-center">
-            {user?.avatar && !imageError ? (
+            {user?.profilePic && !imageError ? (
               <img
-                src={user?.avatar}
+                src={user?.profilePic}
                 alt="Profile"
                 onError={() => setImageError(true)}
                 className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover"

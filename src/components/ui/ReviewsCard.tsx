@@ -1,11 +1,5 @@
+import { Review } from '../../types/review';
 import { Star } from 'lucide-react';
-
-type Review = {
-  name: string;
-  rating: number;
-  comment: string;
-  image: string;
-};
 
 export function ReviewsCard({ item }: { item: Review }) {
   return (

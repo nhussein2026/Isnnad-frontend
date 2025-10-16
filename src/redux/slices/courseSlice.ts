@@ -1,15 +1,16 @@
+import { ICourse } from '../../types/course';
 import api from '../../lib/axios';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  PayloadAction,
+  AsyncThunkConfig,
+} from '@reduxjs/toolkit';
 
 // Types
-export interface Course {
-  id: number;
-  name: string;
-  image: string;
-}
 
 interface CourseState {
-  courses: Course[];
+  courses: ICourse[];
   loading: boolean;
   error: string | null;
 }
@@ -22,12 +23,12 @@ const initialState: CourseState = {
 };
 
 // Async thunks
-export const fetchCourses = createAsyncThunk(
+export const fetchCourses = createAsyncThunk<ICourse[], void, AsyncThunkConfig>(
   'courses/fetchCourses',
   async (_, { rejectWithValue }) => {
     try {
       const response = await api.get('/courses');
-      return response.data.courses;
+      return response.data.courses as ICourse[];
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message || 'Failed to fetch courses'
@@ -36,9 +37,12 @@ export const fetchCourses = createAsyncThunk(
   }
 );
 
-export const addCourse = createAsyncThunk(
+export const addCourse = createAsyncThunk<
+  ICourse,
+  { name: string; pic: string }
+>(
   'courses/addCourse',
-  async (courseData: { name: string; image: string }, { rejectWithValue }) => {
+  async (courseData: { name: string; pic: string }, { rejectWithValue }) => {
     try {
       const response = await api.post('/courses/add', courseData);
       return response.data;
@@ -50,16 +54,19 @@ export const addCourse = createAsyncThunk(
   }
 );
 
-export const updateCourse = createAsyncThunk(
+export const updateCourse = createAsyncThunk<
+  ICourse,
+  { _id: string; name: string; pic: string }
+>(
   'courses/updateCourse',
   async (
-    courseData: { id: number; name: string; image?: string },
+    courseData: { _id: string; name: string; pic: string },
     { rejectWithValue }
   ) => {
     try {
-      const response = await api.put(`/courses/${courseData.id}`, {
+      const response = await api.put(`/courses/${courseData._id}`, {
         name: courseData.name,
-        image: courseData.image,
+        pic: courseData.pic,
       });
       return response.data;
     } catch (error: any) {
@@ -70,9 +77,9 @@ export const updateCourse = createAsyncThunk(
   }
 );
 
-export const deleteCourse = createAsyncThunk(
+export const deleteCourse = createAsyncThunk<string, string>(
   'courses/deleteCourse',
-  async (courseId: number, { rejectWithValue }) => {
+  async (courseId: string, { rejectWithValue }) => {
     try {
       await api.delete(`/courses/${courseId}`);
       return courseId;
@@ -101,7 +108,7 @@ const courseSlice = createSlice({
     });
     builder.addCase(
       fetchCourses.fulfilled,
-      (state, action: PayloadAction<Course[]>) => {
+      (state, action: PayloadAction<ICourse[]>) => {
         state.loading = false;
         state.courses = action.payload;
       }
@@ -118,7 +125,7 @@ const courseSlice = createSlice({
     });
     builder.addCase(
       addCourse.fulfilled,
-      (state, action: PayloadAction<Course>) => {
+      (state, action: PayloadAction<ICourse>) => {
         state.loading = false;
         state.courses.push(action.payload);
       }
@@ -135,10 +142,10 @@ const courseSlice = createSlice({
     });
     builder.addCase(
       updateCourse.fulfilled,
-      (state, action: PayloadAction<Course>) => {
+      (state, action: PayloadAction<ICourse>) => {
         state.loading = false;
         const index = state.courses.findIndex(
-          (c) => c.id === action.payload.id
+          (c) => c._id === action.payload._id
         );
         if (index !== -1) {
           state.courses[index] = action.payload;
@@ -157,9 +164,9 @@ const courseSlice = createSlice({
     });
     builder.addCase(
       deleteCourse.fulfilled,
-      (state, action: PayloadAction<number>) => {
+      (state, action: PayloadAction<string>) => {
         state.loading = false;
-        state.courses = state.courses.filter((c) => c.id !== action.payload);
+        state.courses = state.courses.filter((c) => c._id !== action.payload);
       }
     );
     builder.addCase(deleteCourse.rejected, (state, action) => {

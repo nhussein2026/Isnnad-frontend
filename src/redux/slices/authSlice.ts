@@ -69,7 +69,7 @@ export const registerUser = createAsyncThunk(
 export const updateUserProfile = createAsyncThunk(
   'auth/updateProfile',
   async (
-    payload: Partial<Pick<IUser, 'name' | 'email' | 'phone' | 'avatar'>>,
+    payload: Partial<Pick<IUser, 'name' | 'email' | 'phone' | 'profilePic'>>,
     thunkAPI
   ) => {
     try {

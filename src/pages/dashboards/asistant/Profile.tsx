@@ -13,10 +13,20 @@ import {
   CheckCircle,
   XCircle,
 } from 'lucide-react';
+import { IUser } from '@/types/user';
 import { RootState } from '@/redux/store';
 import { useSelector } from 'react-redux';
 
-const Profile: React.FC = () => {
+interface ProfileProps {
+  user: IUser;
+  onUpdate: (data: Partial<IUser>) => Promise<void>;
+  onChangePassword?: (
+    oldPassword: string,
+    newPassword: string
+  ) => Promise<void>;
+}
+
+const Profile: React.FC<ProfileProps> = ({ onUpdate, onChangePassword }) => {
   const user = useSelector((state: RootState) => state.auth.user)!;
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -54,7 +64,7 @@ const Profile: React.FC = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      // await onUpdate(formData);
+      await onUpdate(formData);
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -74,28 +84,35 @@ const Profile: React.FC = () => {
     setIsEditing(false);
   };
 
-  // const handlePasswordSave = async () => {
-  //   if (passwordData.newPassword !== passwordData.confirmPassword) {
-  //     alert('كلمات المرور غير متطابقة');
-  //     return;
-  //   }
+  const handlePasswordSave = async () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert('كلمات المرور غير متطابقة');
+      return;
+    }
 
-  //   if (passwordData.newPassword.length < 6) {
-  //     alert('كلمة المرور يجب أن تكون至少 6 أحرف');
-  //     return;
-  //   }
+    if (passwordData.newPassword.length < 6) {
+      alert('كلمة المرور يجب أن تكون至少 6 أحرف');
+      return;
+    }
 
-  //   setLoading(true);
-  //   try {
-  //     await onChangePassword?.(passwordData.oldPassword, passwordData.newPassword);
-  //     setPasswordData({ oldPassword: '', newPassword: '', confirmPassword: '' });
-  //     setIsChangingPassword(false);
-  //   } catch (error) {
-  //     console.error('Error changing password:', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+    setLoading(true);
+    try {
+      await onChangePassword?.(
+        passwordData.oldPassword,
+        passwordData.newPassword
+      );
+      setPasswordData({
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      });
+      setIsChangingPassword(false);
+    } catch (error) {
+      console.error('Error changing password:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -461,14 +478,14 @@ const Profile: React.FC = () => {
               />
             </div>
             <div className="flex items-end">
-              {/* <button
+              <button
                 onClick={handlePasswordSave}
                 disabled={loading}
                 className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center gap-2 disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
                 {loading ? 'جاري التحديث...' : 'حفظ كلمة المرور'}
-              </button> */}
+              </button>
             </div>
           </div>
         )}

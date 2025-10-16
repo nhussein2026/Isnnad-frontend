@@ -3,10 +3,8 @@ import {
   Home,
   Users,
   Settings,
-  BarChart3,
   CreditCard,
   FileText,
-  HelpCircle,
   LogOut,
   ChevronRight,
   ChevronLeft,
@@ -69,17 +67,10 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
       action: null,
     },
     {
-      id: 3,
-      name: 'التقارير',
-      icon: BarChart3,
-      href: '/user/analytics',
-      action: null,
-    },
-    {
       id: 4,
       name: 'طلب مهمة',
       icon: CreditCard,
-      href: '/user/task',
+      href: '/user/new-task',
       action: null,
     },
     {
@@ -94,13 +85,6 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
       name: 'الإعدادات',
       icon: Settings,
       href: '/user/settings',
-      action: null,
-    },
-    {
-      id: 7,
-      name: 'المساعدة',
-      icon: HelpCircle,
-      href: '/user/help',
       action: null,
     },
 
@@ -171,7 +155,7 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
 
   return (
     <div
-      className={`h-screen bg-blue-900 text-white flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'}`}
+      className={`h-screen bg-gray-200 text-black flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'}`}
     >
       {/* Sidebar Header */}
       <div className="p-4 border-b border-blue-800 flex items-center justify-between">

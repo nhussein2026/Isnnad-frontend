@@ -90,6 +90,13 @@ const AdminSidebar = ({ isCollapsed, toggleSidebar }: AdminSidebarProps) => {
       action: null,
     },
     {
+      id: 7,
+      name: 'الملف الشخصي',
+      icon: Settings,
+      href: '/admin/profile',
+      action: null,
+    },
+    {
       id: 8,
       name: 'تسجيل الخروج',
       icon: LogOut,

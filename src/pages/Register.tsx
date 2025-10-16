@@ -8,6 +8,8 @@ import { registerUser } from '../redux/slices/authSlice';
 import { toast } from 'sonner';
 import { User, Mail, Phone, Lock } from 'lucide-react';
 
+const COUNTRY_CODE = '+974';
+
 export default function Register() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ export default function Register() {
         registerUser({
           name: form.name,
           email: form.email,
-          phone: form.phone,
+          phone: `${COUNTRY_CODE}${form.phone}`,
           password: form.password,
         })
       ).unwrap();
@@ -145,7 +147,7 @@ export default function Register() {
               رقم الهاتف
             </label>
             <div className="relative w-full flex items-center">
-              {/* Country Code with Flag */}
+              {/* Country Code with Flag - Static Display */}
               <div className="flex items-center justify-center w-24 h-10.5 pr-2 pl-2 py-2 border border-slate-300 bg-gray-200 rounded-l gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +177,9 @@ export default function Register() {
                     </clipPath>
                   </defs>
                 </svg>
-                <span className="text-gray-700 font-medium">+968</span>
+                <span className="text-gray-700 font-medium">
+                  {COUNTRY_CODE}
+                </span>
               </div>
               {/* Phone Number */}
               <div className="relative flex-1">
@@ -183,7 +187,7 @@ export default function Register() {
                 <input
                   required
                   type="number"
-                  placeholder="2xxxxxxxx"
+                  placeholder="3xxx xxxx"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="w-full pr-12 pl-3 py-2 border border-slate-300 border-l-0 bg-[#F3F3F3] rounded-r text-right placeholder-gray-400 text-gray-700 focus:outline-none focus:ring-2 focus:ring-slate-400 no-spinner"

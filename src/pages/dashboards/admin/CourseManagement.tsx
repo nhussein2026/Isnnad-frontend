@@ -10,6 +10,7 @@ import {
 } from '../../../redux/slices/courseSlice';
 import { AppDispatch, RootState } from '@/redux/store';
 import { toast } from 'sonner';
+import { ICourse } from '../../../types/course';
 
 export default function CourseManagement() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +18,7 @@ export default function CourseManagement() {
     (state: RootState) => state.courses
   );
 
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
   const [editImage, setEditImage] = useState('');
   const [isAdding, setIsAdding] = useState(false);
@@ -35,24 +36,24 @@ export default function CourseManagement() {
     }
   });
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (_id: string) => {
     if (window.confirm('Are you sure you want to delete this course?')) {
-      const result = await dispatch(deleteCourse(id));
+      const result = await dispatch(deleteCourse(_id));
       if (deleteCourse.fulfilled.match(result)) {
         toast('Course deleted successfully');
       }
     }
   };
 
-  const startEdit = (course: any) => {
-    setEditingId(course.id);
+  const startEdit = (course: ICourse) => {
+    setEditingId(course._id || '');
     setEditName(course.name);
-    setEditImage(course.image);
+    setEditImage(course.pic);
   };
 
-  const saveEdit = async (id: number) => {
+  const saveEdit = async (_id: string) => {
     const result = await dispatch(
-      updateCourse({ id, name: editName, image: editImage })
+      updateCourse({ _id, name: editName, pic: editImage })
     );
     if (updateCourse.fulfilled.match(result)) {
       toast('Course updated successfully');
@@ -71,7 +72,7 @@ export default function CourseManagement() {
   const handleAddCourse = async () => {
     if (newCourseName.trim() && newCourseImage.trim()) {
       const result = await dispatch(
-        addCourse({ name: newCourseName, image: newCourseImage })
+        addCourse({ name: newCourseName, pic: newCourseImage })
       );
       if (addCourse.fulfilled.match(result)) {
         toast('Course added successfully');
@@ -160,14 +161,14 @@ export default function CourseManagement() {
             )}
 
             {courses &&
-              courses.map((course) => (
+              courses.map((course: ICourse) => (
                 <div
-                  key={course.id}
+                  key={course._id}
                   className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={course.image}
+                      src={course.pic}
                       alt={course.name}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       onError={(e) => {
@@ -178,7 +179,7 @@ export default function CourseManagement() {
                   </div>
 
                   <div className="p-4">
-                    {editingId === course.id ? (
+                    {editingId === course._id ? (
                       <div className="space-y-3">
                         <input
                           type="text"
@@ -196,7 +197,7 @@ export default function CourseManagement() {
                         />
                         <div className="flex gap-2">
                           <button
-                            onClick={() => saveEdit(course.id)}
+                            onClick={() => saveEdit(course._id)}
                             disabled={loading}
                             className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors disabled:opacity-50"
                           >
@@ -233,7 +234,7 @@ export default function CourseManagement() {
                             Edit
                           </button>
                           <button
-                            onClick={() => handleDelete(course.id)}
+                            onClick={() => handleDelete(course._id)}
                             disabled={loading}
                             className="flex-1 flex items-center justify-center gap-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors disabled:opacity-50"
                           >
