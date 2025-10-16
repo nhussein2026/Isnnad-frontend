@@ -52,7 +52,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
   ) => {
     const { name, value } = e.target;
 
-        // course selection handling
+    // course selection handling
     if (name === 'course') {
       const selectedCourse = courses.find((course) => course._id === value);
       setFormData((prev) => ({

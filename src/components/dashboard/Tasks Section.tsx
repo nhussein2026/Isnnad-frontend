@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import React, { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface CourseTask {
   subject: string;
@@ -21,20 +21,21 @@ export const TasksSection: React.FC<SectionProps> = ({ title, courses }) => {
         className="flex justify-between items-center cursor-pointer select-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-      
         <button
           className="text-gray-600 hover:text-gray-800 transition-transform"
           aria-label="toggle section"
         >
           {isOpen ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
         </button>
-          <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+        <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
       </div>
 
       {/* Content */}
       <div
         className={`grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 transition-all duration-300 ${
-          isOpen ? "opacity-100 max-h-screen" : "opacity-0 max-h-0 overflow-hidden"
+          isOpen
+            ? 'opacity-100 max-h-screen'
+            : 'opacity-0 max-h-0 overflow-hidden'
         }`}
       >
         {courses.map((subj, index) => (

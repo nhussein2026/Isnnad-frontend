@@ -7,12 +7,15 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { DataPoint } from '../../../types/data';
+import { PeriodType } from '../../../types/period';
+import { Totals } from '../../../types/totals';
 
 const AnalyticsSection = () => {
-  const [period, setPeriod] = useState('آخر ثلاثة أشهر');
+  const [period, setPeriod] = useState<PeriodType>('آخر ثلاثة أشهر');
 
-  const data = [
+  const allData: DataPoint[] = [
     { date: 'يونيو 20', visitors: 300, orders: 200 },
     { date: 'يونيو 25', visitors: 500, orders: 300 },
     { date: 'يوليو 1', visitors: 800, orders: 450 },
@@ -25,14 +28,31 @@ const AnalyticsSection = () => {
     { date: 'أكتوبر 10', visitors: 750, orders: 600 },
   ];
 
+  const filterDataByPeriod = (period: PeriodType): DataPoint[] => {
+    if (period === 'آخر أسبوع') return allData.slice(-2);
+    if (period === 'آخر شهر') return allData.slice(-4);
+    return allData;
+  };
+
+  const getTotals = (data: DataPoint[]): Totals => {
+    const totalVisitors = data.reduce((sum, item) => sum + item.visitors, 0);
+    const totalOrders = data.reduce((sum, item) => sum + item.orders, 0);
+    return { totalVisitors, totalOrders };
+  };
+
+  const filteredData = useMemo(() => filterDataByPeriod(period), [period]);
+  const { totalVisitors, totalOrders } = useMemo(
+    () => getTotals(filteredData),
+    [filteredData]
+  );
+
   return (
-    <div className="bg-white rounded-2xl shadow p-6 w-full">
-      {/* العنوان والفلاتر */}
+    <div className="bg-white rounded-2xl shadow p-6 w-full mb-15">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
         <select
           value={period}
-          onChange={(e) => setPeriod(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onChange={(e) => setPeriod(e.target.value as PeriodType)}
+          className="border border-gray-300 rounded-3xl md:px-5 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option>آخر أسبوع</option>
           <option>آخر شهر</option>
@@ -42,19 +62,20 @@ const AnalyticsSection = () => {
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 text-center sm:text-right">
           <div>
             <p className="text-gray-500 text-sm">عدد الزوار</p>
-            <p className="text-2xl font-bold">24,828</p>
+            <p className="text-2xl font-bold">
+              {totalVisitors.toLocaleString()}
+            </p>
           </div>
           <div>
             <p className="text-gray-500 text-sm">عدد الطلبات</p>
-            <p className="text-2xl font-bold">25,010</p>
+            <p className="text-2xl font-bold">{totalOrders.toLocaleString()}</p>
           </div>
         </div>
       </div>
 
-      {/* المخطط */}
       <div className="w-full h-64">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data}>
+          <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="visitorsColor" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.4} />
