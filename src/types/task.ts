@@ -8,10 +8,10 @@ export interface ITask {
   doctorName: string;
   course: ICourse;
   question: string;
-  type?: 'homework' | 'project' | 'quiz' | 'other';
+  type?: 'واجب منزلي' | 'مشروع' | 'اختبار' | 'أخرى';
   description?: string;
   timeToComplete: number;
-  status?: 'in_progress' | 'achieved' | 'pending' | 'overdue';
+  status: 'قيد التنفيذ' | 'تم الإنجاز' | 'قيد الانتظار' | 'متأخر';
   attachments?: string[];
   additionalInfo?: string;
   createdBy: string | IUser;

@@ -5,16 +5,17 @@ import {
   HelpCircle,
   FileText,
   Clock,
-  Flag,
   Paperclip,
   Info,
-  Plus,
+  // Plus,
   Upload,
+  // X,
 } from 'lucide-react';
-import { ITask } from '../../types/task';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { ICourse } from '../../types/course';
+import { ITask } from '../../types/task';
+import { toast } from 'sonner';
 
 export type TaskFormData = Omit<ITask, 'createdBy' | '_id'>;
 
@@ -30,20 +31,23 @@ const TaskForm: React.FC<TaskFormProps> = ({
   initialData,
 }) => {
   const { courses } = useSelector((state: RootState) => state.courses);
+  console.log('Available Courses:', courses);
+
   const [formData, setFormData] = useState<TaskFormData>({
     studentName: initialData?.studentName || '',
     studentId: initialData?.studentId || '',
     doctorName: initialData?.doctorName || '',
     course: initialData?.course || ({} as ICourse),
     question: initialData?.question || '',
-    type: initialData?.type || 'homework',
+    type: initialData?.type || 'أخرى',
     description: initialData?.description || '',
     timeToComplete: initialData?.timeToComplete || 60,
-    attachments: initialData?.attachments ?? ([] as string[]),
+    attachments: initialData?.attachments ?? [],
     additionalInfo: initialData?.additionalInfo || '',
+    status: initialData?.status || 'قيد الانتظار', // Added default status
   });
 
-  const [newAttachment, setNewAttachment] = useState('');
+  // const [newAttachment, setNewAttachment] = useState('');
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -52,7 +56,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
   ) => {
     const { name, value } = e.target;
 
-    // course selection handling
     if (name === 'course') {
       const selectedCourse = courses.find((course) => course._id === value);
       setFormData((prev) => ({
@@ -76,26 +79,35 @@ const TaskForm: React.FC<TaskFormProps> = ({
     }));
   };
 
-  const handleAddAttachment = () => {
-    if (newAttachment.trim()) {
-      setFormData((prev) => ({
-        ...prev,
-        attachments: [...(prev.attachments || []), newAttachment.trim()],
-      }));
-      setNewAttachment('');
-    }
-  };
-
-  //   const handleRemoveAttachment = (index: number) => {
-  //     setFormData(prev => ({
+  // const handleAddAttachment = () => {
+  //   if (newAttachment.trim()) {
+  //     setFormData((prev) => ({
   //       ...prev,
-
-  // attachments: (prev.attachments || []).filter((_, i) => i !== index),
+  //       attachments: [...(prev.attachments || []), newAttachment.trim()],
   //     }));
-  //   };
+  //     setNewAttachment('');
+  //   }
+  // };
+
+  // const handleRemoveAttachment = (index: number) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     attachments: (prev.attachments || []).filter((_, i) => i !== index),
+  //   }));
+  // };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (
+      !formData.studentName.trim() ||
+      !formData.studentId.trim() ||
+      !formData.doctorName.trim() ||
+      !formData.course._id ||
+      !formData.question.trim()
+    ) {
+      toast.error('يرجى ملء جميع الحقول المطلوبة');
+      return;
+    }
     onSubmit(formData);
     console.log('Submitted Data:', formData);
   };
@@ -111,9 +123,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* قسم معلومات الطالب */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* اسم الطالب */}
           <div>
             <label
               htmlFor="studentName"
@@ -129,12 +139,10 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.studentName}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
               placeholder="أدخل اسم الطالب"
             />
           </div>
-
-          {/* رقم الطالب */}
           <div>
             <label
               htmlFor="studentId"
@@ -150,15 +158,13 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.studentId}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
               placeholder="أدخل رقم الطالب"
             />
           </div>
         </div>
 
-        {/* قسم الدكتور والمادة */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* اسم الدكتور */}
           <div>
             <label
               htmlFor="doctorName"
@@ -174,12 +180,10 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.doctorName}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
               placeholder="أدخل اسم الدكتور"
             />
           </div>
-
-          {/* اختيار المادة */}
           <div>
             <label
               htmlFor="course"
@@ -194,7 +198,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.course?._id || ''}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
             >
               <option value="">اختر المادة</option>
               {courses.map((course) => (
@@ -206,9 +210,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
           </div>
         </div>
 
-        {/* قسم السؤال ونوع المهمة */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* السؤال */}
           <div>
             <label
               htmlFor="question"
@@ -224,12 +226,10 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.question}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
               placeholder="أدخل السؤال"
             />
           </div>
-
-          {/* نوع المهمة */}
           <div>
             <label
               htmlFor="type"
@@ -244,17 +244,16 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.type}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
             >
-              <option value="homework">واجب منزلي</option>
-              <option value="project">مشروع</option>
-              <option value="quiz">اختبار</option>
-              <option value="other">أخرى</option>
+              <option value="واجب منزلي">واجب منزلي</option>
+              <option value="مشروع">مشروع</option>
+              <option value="اختبار">اختبار</option>
+              <option value="أخرى">أخرى</option>
             </select>
           </div>
         </div>
 
-        {/* الوصف */}
         <div>
           <label
             htmlFor="description"
@@ -269,14 +268,12 @@ const TaskForm: React.FC<TaskFormProps> = ({
             rows={3}
             value={formData.description}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
             placeholder="أدخل وصف المهمة"
           />
         </div>
 
-        {/* قسم الوقت والحالة */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* الوقت اللازم للإنجاز */}
           <div>
             <label
               htmlFor="timeToComplete"
@@ -293,19 +290,17 @@ const TaskForm: React.FC<TaskFormProps> = ({
               min="1"
               value={formData.timeToComplete}
               onChange={handleNumberChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
               placeholder="أدخل الوقت بالدقائق"
             />
           </div>
-
-          {/* الحالة */}
           <div>
             <label
               htmlFor="status"
               className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2"
             >
-              <Flag className="w-4 h-4" />
-              الحالة *
+              <FileText className="w-4 h-4" />
+              حالة المهمة *
             </label>
             <select
               id="status"
@@ -313,41 +308,40 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               value={formData.status}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
             >
-              <option value="in_progress">قيد التنفيذ</option>
-              <option value="achieved">مكتمل</option>
-              <option value="pending">معلق</option>
-              <option value="overdue">متأخر</option>
+              <option value="قيد الانتظار">قيد الانتظار</option>
+              <option value="قيد التنفيذ">قيد التنفيذ</option>
+              <option value="تم الإنجاز">تم الإنجاز</option>
+              <option value="متأخر">متأخر</option>
             </select>
           </div>
         </div>
 
-        {/* المرفقات */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
             <Paperclip className="w-4 h-4" />
             المرفقات
           </label>
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <div className="flex gap-2">
               <input
                 type="text"
                 value={newAttachment}
                 onChange={(e) => setNewAttachment(e.target.value)}
                 placeholder="أدخل رابط الملف أو المسار"
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
               />
               <button
                 type="button"
                 onClick={handleAddAttachment}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center gap-2"
+                className="px-4 py-2 bg-[#8D1B3D] text-white rounded-md hover:bg-[#be2653c9] focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:ring-offset-2 flex items-center gap-2"
               >
                 <Plus className="w-4 h-4" />
                 إضافة
               </button>
             </div>
-            {/* {formData.attachments.length > 0 && (
+            {formData.attachments.length > 0 && (
               <div className="space-y-2">
                 {formData.attachments.map((attachment, index) => (
                   <div
@@ -365,11 +359,10 @@ const TaskForm: React.FC<TaskFormProps> = ({
                   </div>
                 ))}
               </div>
-            )} */}
-          </div>
+            )}
+          </div> */}
         </div>
 
-        {/* معلومات إضافية */}
         <div>
           <label
             htmlFor="additionalInfo"
@@ -384,25 +377,24 @@ const TaskForm: React.FC<TaskFormProps> = ({
             rows={3}
             value={formData.additionalInfo}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:border-[#8D1B3D]"
             placeholder="أدخل أي معلومات إضافية"
           />
         </div>
 
-        {/* أزرار النموذج */}
         <div className="flex justify-end gap-4 pt-6 border-t border-gray-200">
           {onCancel && (
             <button
               type="button"
               onClick={onCancel}
-              className="px-6 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="px-6 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:ring-offset-2"
             >
               إلغاء
             </button>
           )}
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center gap-2"
+            className="px-6 py-2 bg-[#8D1B3D] text-white rounded-md shadow-sm hover:bg-[#be2653c9] focus:outline-none focus:ring-2 focus:ring-[#8D1B3D] focus:ring-offset-2 flex items-center gap-2"
           >
             <Upload className="w-4 h-4" />
             {initialData ? 'تحديث المهمة' : 'إنشاء المهمة'}

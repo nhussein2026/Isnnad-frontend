@@ -1,14 +1,15 @@
 // components/dashboard/sidebars/UserSidebar.jsx
 import {
-  Home,
-  Users,
+  LayoutDashboard,
   Settings,
-  CreditCard,
-  FileText,
   LogOut,
   ChevronRight,
   ChevronLeft,
   LucideIcon,
+  BookOpen,
+  User,
+  FilePlus,
+  ClipboardCheck,
 } from 'lucide-react';
 import logo from '../../../assets/images/Isnnad-logo-red-white.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,60 +55,61 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
   const menuItems: MenuItem[] = [
     {
       id: 1,
-      name: 'لوحة التحكم',
-      icon: Home,
+      name: 'لوحة التحكم', // Dashboard
+      icon: LayoutDashboard,
       href: '/user/dashboard',
       action: null,
     },
     {
       id: 2,
-      name: 'المواد',
-      icon: Users,
+      name: 'المواد', // Courses / Subjects
+      icon: BookOpen,
       href: '/user/courses',
       action: null,
     },
     {
       id: 3,
-      name: 'مهامي',
-      icon: Users,
+      name: 'مهامي', // My Tasks
+      icon: ClipboardCheck,
       href: '/user/my-tasks',
       action: null,
     },
     {
       id: 4,
-      name: 'طلب مهمة',
-      icon: CreditCard,
+      name: 'طلب مهمة', // Request Task
+      icon: FilePlus,
       href: '/user/new-task',
       action: null,
     },
     {
       id: 5,
-      name: 'ملفي الشخصي',
-      icon: FileText,
+      name: 'ملفي الشخصي', // Profile
+      icon: User,
       href: '/user/profile',
       action: null,
     },
     {
       id: 6,
-      name: 'الإعدادات',
+      name: 'الإعدادات', // Settings
       icon: Settings,
       href: '/user/settings',
       action: null,
     },
-
     {
       id: 8,
-      name: 'تسجيل الخروج',
+      name: 'تسجيل الخروج', // Logout
       icon: LogOut,
       href: null,
       action: handleLogout,
-      className: 'text-red-300 hover:text-red-900 hover:bg-red-800/20',
+      className: 'text-red-700 hover:text-red-900 hover:bg-red-800/20',
     },
   ];
   const renderMenuItem = (item: MenuItem) => {
     const isActive = item.href && location.pathname === item.href;
-    const baseClasses = `flex items-center justify-end p-3 rounded-lg transition-colors duration-200 group ${
-      isActive ? 'bg-blue-800 text-white' : 'hover:bg-gray-400 hover:text-white'
+    const baseClasses = `flex items-center justify-end p-2 rounded transition-colors duration-200 group ${
+      isActive
+        ? 'bg-[#8D1B3D] text-white'
+        : 'hover:bg-[#FFC1D5] hover:text-[#8D1B3D]'
     }`;
 
     const itemClasses = item.className
@@ -142,7 +144,7 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
         key={item.id}
         to={item.href || '#'}
         className={({ isActive: navIsActive }) =>
-          `${itemClasses} ${navIsActive ? 'bg-gray-400 text-white' : ''}`
+          `${itemClasses} ${navIsActive ? 'bg-[#8D1B3D] text-white' : ''}`
         }
       >
         {!isCollapsed && <span className="mr-3">{item.name}</span>}
@@ -162,7 +164,7 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
 
   return (
     <div
-      className={`h-screen bg-gray-200 text-black flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-64'}`}
+      className={`h-screen bg-[#FFFFFF] text-black flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-56'}`}
     >
       {/* Sidebar Header */}
       <div className="p-4 border-b border-blue-800 flex items-center justify-between">
@@ -178,7 +180,7 @@ const UserSidebar = ({ isCollapsed, toggleSidebar }: UserSidebarProps) => {
         )}
         {isCollapsed && (
           <div className="bg-white text-blue-900 w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xl mx-auto">
-            ش
+            س
           </div>
         )}
         <button

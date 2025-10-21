@@ -21,15 +21,15 @@ const DashboardStats: React.FC = () => {
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
       <div className="bg-white shadow rounded-xl p-6 text-center">
         <h3 className="text-lg font-semibold text-gray-700">Users</h3>
-        <p className="text-3xl font-bold text-blue-600">{stats.users}</p>
+        <p className="text-3xl font-bold text-blue-600">{stats?.users}</p>
       </div>
       <div className="bg-white shadow rounded-xl p-6 text-center">
         <h3 className="text-lg font-semibold text-gray-700">Courses</h3>
-        <p className="text-3xl font-bold text-green-600">{stats.courses}</p>
+        <p className="text-3xl font-bold text-green-600">{stats?.courses}</p>
       </div>
       <div className="bg-white shadow rounded-xl p-6 text-center">
         <h3 className="text-lg font-semibold text-gray-700">Tasks</h3>
-        <p className="text-3xl font-bold text-purple-600">{stats.tasks}</p>
+        <p className="text-3xl font-bold text-purple-600">{stats?.tasks}</p>
       </div>
     </div>
   );

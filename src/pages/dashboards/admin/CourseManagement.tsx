@@ -8,9 +8,10 @@ import {
   deleteCourse,
   clearError,
 } from '../../../redux/slices/courseSlice';
-import { AppDispatch, RootState } from '@/redux/store';
+import { AppDispatch, RootState } from '../../../redux/store';
 import { toast } from 'sonner';
 import { ICourse } from '../../../types/course';
+import { Link } from 'react-router-dom';
 
 export default function CourseManagement() {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,16 +32,20 @@ export default function CourseManagement() {
 
   useEffect(() => {
     if (error) {
-      toast(error);
+      toast.error(error);
       dispatch(clearError());
     }
-  });
+  }, [error, dispatch]);
 
-  const handleDelete = async (_id: string) => {
-    if (window.confirm('Are you sure you want to delete this course?')) {
+  const handleDelete = async (_id: string, name: string) => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete the course "${name}"? This action cannot be undone.`
+      )
+    ) {
       const result = await dispatch(deleteCourse(_id));
       if (deleteCourse.fulfilled.match(result)) {
-        toast('Course deleted successfully');
+        toast.success('Course deleted successfully');
       }
     }
   };
@@ -48,15 +53,19 @@ export default function CourseManagement() {
   const startEdit = (course: ICourse) => {
     setEditingId(course._id || '');
     setEditName(course.name);
-    setEditImage(course.pic);
+    setEditImage(course.pic || '');
   };
 
   const saveEdit = async (_id: string) => {
+    if (!editName.trim() || !editImage.trim()) {
+      toast.error('Please provide both a name and an image URL');
+      return;
+    }
     const result = await dispatch(
       updateCourse({ _id, name: editName, pic: editImage })
     );
     if (updateCourse.fulfilled.match(result)) {
-      toast('Course updated successfully');
+      toast.success('Course updated successfully');
       setEditingId(null);
       setEditName('');
       setEditImage('');
@@ -70,16 +79,18 @@ export default function CourseManagement() {
   };
 
   const handleAddCourse = async () => {
-    if (newCourseName.trim() && newCourseImage.trim()) {
-      const result = await dispatch(
-        addCourse({ name: newCourseName, pic: newCourseImage })
-      );
-      if (addCourse.fulfilled.match(result)) {
-        toast('Course added successfully');
-        setNewCourseName('');
-        setNewCourseImage('');
-        setIsAdding(false);
-      }
+    if (!newCourseName.trim() || !newCourseImage.trim()) {
+      toast.error('Please provide both a name and an image URL');
+      return;
+    }
+    const result = await dispatch(
+      addCourse({ name: newCourseName, pic: newCourseImage })
+    );
+    if (addCourse.fulfilled.match(result)) {
+      toast.success('Course added successfully');
+      setNewCourseName('');
+      setNewCourseImage('');
+      setIsAdding(false);
     }
   };
 
@@ -90,174 +101,183 @@ export default function CourseManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gray-50 px-4 py-10 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">
-            Course Manager
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-semibold text-gray-800">
+            Course Management
           </h1>
-          <p className="text-gray-600">Manage your courses with ease</p>
+          <p className="text-gray-500 mt-2">
+            Add, edit, or delete courses with ease
+          </p>
         </div>
 
-        <button
-          onClick={() => setIsAdding(true)}
-          disabled={loading || isAdding}
-          className="mb-6 flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <Plus size={20} />
-          Add New Course
-        </button>
+        <div className="mb-6">
+          <button
+            onClick={() => setIsAdding(true)}
+            disabled={isAdding}
+            className="flex items-center gap-2 bg-[#8D1B3D] text-white px-6 py-3 rounded-lg hover:bg-[#be2653c9] transition-colors shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Plus size={20} />
+            Add New Course
+          </button>
+        </div>
 
-        {loading && courses.length === 0 ? (
-          <div className="flex justify-center items-center py-20">
-            <Loader2 className="animate-spin text-indigo-600" size={48} />
+        {isAdding && (
+          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
+              Add New Course
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="text"
+                value={newCourseName}
+                onChange={(e) => setNewCourseName(e.target.value)}
+                placeholder="Course Name"
+                className="flex-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8D1B3D]"
+              />
+              <input
+                type="text"
+                value={newCourseImage}
+                onChange={(e) => setNewCourseImage(e.target.value)}
+                placeholder="Image URL"
+                className="flex-1 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8D1B3D]"
+              />
+            </div>
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                onClick={handleAddCourse}
+                disabled={loading}
+                className="flex items-center gap-2 px-4 py-2 bg-[#8D1B3D] text-white rounded-md hover:bg-[#be2653c9] transition-colors disabled:opacity-50"
+              >
+                {loading ? (
+                  <Loader2 className="animate-spin" size={20} />
+                ) : (
+                  <Check size={20} />
+                )}
+                Save
+              </button>
+              <button
+                onClick={cancelAdd}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+              >
+                <X size={20} />
+                Cancel
+              </button>
+            </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {isAdding && (
-              <div className="bg-white rounded-lg shadow-md p-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                  Add New Course
-                </h3>
-                <div className="space-y-3">
+        )}
+
+        {loading && (
+          <div className="text-center text-gray-500 py-8 animate-pulse">
+            Loading courses...
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center text-red-500 py-8">Error: {error}</div>
+        )}
+
+        {!loading && !error && courses.length === 0 && (
+          <div className="text-center text-gray-500 py-8">
+            No courses found.
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {courses.map((course: ICourse) => (
+            <div
+              key={course._id}
+              className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
+            >
+              {editingId === course._id ? (
+                <div className="p-4">
                   <input
                     type="text"
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
                     placeholder="Course Name"
-                    value={newCourseName}
-                    onChange={(e) => setNewCourseName(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full mb-2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8D1B3D]"
                   />
                   <input
                     type="text"
+                    value={editImage}
+                    onChange={(e) => setEditImage(e.target.value)}
                     placeholder="Image URL"
-                    value={newCourseImage}
-                    onChange={(e) => setNewCourseImage(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full mb-2 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8D1B3D]"
                   />
-                  <div className="flex gap-2">
+                  <div className="flex justify-end gap-2">
                     <button
-                      onClick={handleAddCourse}
+                      onClick={() => saveEdit(course._id || '')}
                       disabled={loading}
-                      className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#8D1B3D] text-white rounded-md hover:bg-[#be2653c9] transition-colors disabled:opacity-50"
                     >
                       {loading ? (
-                        <Loader2 className="animate-spin" size={16} />
+                        <Loader2 className="animate-spin" size={20} />
                       ) : (
-                        <Check size={16} />
+                        <Check size={20} />
                       )}
-                      Add
+                      Save
                     </button>
                     <button
-                      onClick={cancelAdd}
-                      disabled={loading}
-                      className="flex-1 flex items-center justify-center gap-2 bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500 transition-colors disabled:opacity-50"
+                      onClick={cancelEdit}
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
                     >
-                      <X size={16} />
+                      <X size={20} />
                       Cancel
                     </button>
                   </div>
                 </div>
-              </div>
-            )}
-
-            {courses &&
-              courses.map((course: ICourse) => (
-                <div
-                  key={course._id}
-                  className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={course.pic}
-                      alt={course.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          'https://images.unsplash.com/photo-1516397281156-ca07cf9746fc?w=400&h=300&fit=crop';
-                      }}
-                    />
-                  </div>
-
-                  <div className="p-4">
-                    {editingId === course._id ? (
-                      <div className="space-y-3">
-                        <input
-                          type="text"
-                          value={editName}
-                          onChange={(e) => setEditName(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          autoFocus
+              ) : (
+                <>
+                  <Link to={`/courses/${course._id}`} className="block">
+                    <div className="relative w-full h-48 bg-gray-200 flex items-center justify-center overflow-hidden">
+                      {course.pic ? (
+                        <img
+                          src={course.pic}
+                          alt={course.name}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src =
+                              'https://via.placeholder.com/400x192?text=No+Image';
+                          }}
                         />
-                        <input
-                          type="text"
-                          value={editImage}
-                          onChange={(e) => setEditImage(e.target.value)}
-                          placeholder="Image URL"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => saveEdit(course._id)}
-                            disabled={loading}
-                            className="flex-1 flex items-center justify-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors disabled:opacity-50"
-                          >
-                            {loading ? (
-                              <Loader2 className="animate-spin" size={16} />
-                            ) : (
-                              <Check size={16} />
-                            )}
-                            Save
-                          </button>
-                          <button
-                            onClick={cancelEdit}
-                            disabled={loading}
-                            className="flex-1 flex items-center justify-center gap-2 bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500 transition-colors disabled:opacity-50"
-                          >
-                            <X size={16} />
-                            Cancel
-                          </button>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-500 font-medium">
+                          No Image Available
                         </div>
-                      </div>
-                    ) : (
-                      <>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-4 min-h-[3rem]">
-                          {course.name}
-                        </h3>
-
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => startEdit(course)}
-                            disabled={loading}
-                            className="flex-1 flex items-center justify-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors disabled:opacity-50"
-                          >
-                            <Edit2 size={16} />
-                            Edit
-                          </button>
-                          <button
-                            onClick={() => handleDelete(course._id)}
-                            disabled={loading}
-                            className="flex-1 flex items-center justify-center gap-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors disabled:opacity-50"
-                          >
-                            <Trash2 size={16} />
-                            Delete
-                          </button>
-                        </div>
-                      </>
-                    )}
+                      )}
+                    </div>
+                    <div className="p-4 flex-grow">
+                      <h3 className="text-lg font-bold text-gray-900 text-center">
+                        {course.name}
+                      </h3>
+                    </div>
+                  </Link>
+                  <div className="p-4 flex justify-end gap-2 border-t border-gray-100">
+                    <button
+                      onClick={() => startEdit(course)}
+                      className="flex items-center gap-2 px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                    >
+                      <Edit2 size={16} />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleDelete(course._id || '', course.name)
+                      }
+                      className="flex items-center gap-2 px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                    >
+                      <Trash2 size={16} />
+                      Delete
+                    </button>
                   </div>
-                </div>
-              ))}
-          </div>
-        )}
-
-        {courses.length === 0 && !loading && !isAdding && (
-          <div className="text-center py-16">
-            <p className="text-gray-500 text-xl">No courses available</p>
-            <p className="text-gray-400 mt-2">
-              Click "Add New Course" to get started
-            </p>
-          </div>
-        )}
+                </>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
