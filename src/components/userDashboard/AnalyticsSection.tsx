@@ -29,13 +29,14 @@ const CircularProgressCard: React.FC<CircularProgressCardProps> = ({
     lg: 'w-40 h-40',
   };
 
-  const colorClasses = {
-    blue: { text: 'text-blue-600', stroke: 'stroke-blue-500' },
-    green: { text: 'text-green-600', stroke: 'stroke-green-500' },
-    purple: { text: 'text-purple-600', stroke: 'stroke-purple-500' },
-    red: { text: 'text-red-600', stroke: 'stroke-red-500' },
-    yellow: { text: 'text-yellow-600', stroke: 'stroke-yellow-500' },
-  };
+const colorClasses = {
+  blue: { text: 'text-[#1B8D6B]', stroke: '#1B8D6B' },     // قيد التنفيذ
+  green: { text: 'text-[#8D1B3D]', stroke: '#8D1B3D' },    // تم الإنجاز
+  purple: { text: 'text-[#1B8D6B]', stroke: '#1B8D6B' },   // إجمالي المهام
+  red: { text: 'text-[#E2D2D6]', stroke: '#E2D2D6' },      // متأخر
+  yellow: { text: 'text-yellow-600', stroke: 'yellow' },  // optional / fallback
+};
+
 
   const displayValue =
     type === 'percentage' ? `${Math.round(percentage)}%` : value.toString();
@@ -69,7 +70,8 @@ const CircularProgressCard: React.FC<CircularProgressCardProps> = ({
               circumference - (percentage / 100) * circumference
             }
             strokeLinecap="round"
-            className={`transition-all duration-500 ease-in-out ${colorClasses[color].stroke}`}
+            className={`transition-all duration-500 ease-in-out`}
+            style={{ stroke: colorClasses[color].stroke }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
@@ -122,7 +124,7 @@ const AnalyticsSection: React.FC = () => {
       value: inProgress,
       maxValue: total || 1,
       label: 'المهام قيد التنفيذ',
-      type: 'percentage' as const,
+      type: 'number' as const,
       color: 'blue' as const,
     },
     {

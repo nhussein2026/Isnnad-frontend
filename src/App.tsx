@@ -57,6 +57,7 @@ import CourseManagement from './pages/dashboards/admin/CourseManagement';
 import TasksManagement from './pages/dashboards/admin/TasksManagement';
 import AdminProfile from './pages/dashboards/admin/AdminProfile';
 import MyTasks from './pages/dashboards/user/MyTasks';
+import UserSettings from './pages/dashboards/user/UserSetting';
 
 function App() {
   return (
@@ -112,8 +113,7 @@ function App() {
           <Route path="cart" element={<UserCart />} />
           <Route path="new-task" element={<UserTask />} />
           <Route path="my-tasks" element={<MyTasks />} />
-
-          {/* <Route path="settings" element={<SettingsPage />} /> */}
+          <Route path="settings" element={<UserSettings />} />
         </Route>
 
         {/* Manager Dashboard Routes */}
