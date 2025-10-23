@@ -1,20 +1,18 @@
-
-
 /** ------- Types ------- */
 type HexColor = `#${string}`;
 
-export type StatValue = number;    
-export type StatLabel = string;    
-export type StatColor = HexColor; 
+export type StatValue = number;
+export type StatLabel = string;
+export type StatColor = HexColor;
 
 // دائرة التقدم
 type CircleProgressProps = {
-  value: StatValue;          
-  color: StatColor;         
-  size?: number;             
-  stroke?: number;           
-  track?: HexColor | string; 
-}
+  value: StatValue;
+  color: StatColor;
+  size?: number;
+  stroke?: number;
+  track?: HexColor | string;
+};
 
 // بطاقة الإحصائية
 type StatCardProps = {
@@ -29,7 +27,7 @@ function CircleProgress({
   color,
   size = 120,
   stroke = 10,
-  track = "#E5E7EB",
+  track = '#E5E7EB',
 }: CircleProgressProps) {
   const r = size / 2 - stroke;
   const c = 2 * Math.PI * r;
@@ -47,7 +45,14 @@ function CircleProgress({
       role="img"
     >
       {/* المسار الرمادي الخلفي */}
-      <circle cx={size / 2} cy={size / 2} r={r} stroke={track} strokeWidth={stroke} fill="none" />
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={r}
+        stroke={track}
+        strokeWidth={stroke}
+        fill="none"
+      />
       {/* مسار التقدم يبدأ من الأعلى */}
       <g transform={`rotate(-90 ${size / 2} ${size / 2})`}>
         <circle
@@ -71,11 +76,15 @@ function StatCard({ value, label, color }: StatCardProps) {
       <div className="relative">
         <CircleProgress value={value} color={color} />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="text-[22px] leading-none font-bold text-gray-900">{value}</div>
+          <div className="text-[22px] leading-none font-bold text-gray-900">
+            {value}
+          </div>
           <div className="text-[11px] mt-1 text-gray-400">مهمة</div>
         </div>
       </div>
-      <div className="mt-4 text-[15px] font-extrabold text-gray-800">{label}</div>
+      <div className="mt-4 text-[15px] font-extrabold text-gray-800">
+        {label}
+      </div>
     </div>
   );
 }

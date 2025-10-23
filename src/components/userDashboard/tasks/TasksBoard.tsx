@@ -1,8 +1,8 @@
 // components/dashboard/SubjectTasksBoard.tsx
-import React, { useMemo, useState } from "react";
+import React, { useState } from 'react';
 
 /* ---------- Types ---------- */
-type ColumnKey = "todo" | "doing" | "done";
+type ColumnKey = 'todo' | 'doing' | 'done';
 
 type Task = {
   id: string;
@@ -16,13 +16,25 @@ type BoardState = Record<ColumnKey, Task[]>;
 const uid = () => Math.random().toString(36).slice(2, 9);
 
 /* ---------- Icons (inline SVGs, zero deps) ---------- */
-const CheckIcon = ({ className = "" }) => (
-  <svg viewBox="0 0 24 24" width="14" height="14" className={className} aria-hidden>
+const CheckIcon = ({ className = '' }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    className={className}
+    aria-hidden
+  >
     <path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
   </svg>
 );
-const MinusIcon = ({ className = "" }) => (
-  <svg viewBox="0 0 24 24" width="14" height="14" className={className} aria-hidden>
+const MinusIcon = ({ className = '' }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="14"
+    height="14"
+    className={className}
+    aria-hidden
+  >
     <rect x="5" y="11" width="14" height="2" fill="currentColor" />
   </svg>
 );
@@ -41,11 +53,11 @@ function TaskCard({
   onDragStart: (e: React.DragEvent<HTMLDivElement>, id: string) => void;
 }) {
   const border =
-    variant === "done"
-      ? "border-rose-700"
-      : variant === "doing"
-      ? "border-black/70"
-      : "border-gray-300";
+    variant === 'done'
+      ? 'border-rose-700'
+      : variant === 'doing'
+        ? 'border-black/70'
+        : 'border-gray-300';
 
   return (
     <div
@@ -57,24 +69,26 @@ function TaskCard({
         <div className="text-[13px] font-bold text-gray-800">{task.title}</div>
         <span
           className={`inline-flex items-center justify-center w-4.5 h-4.5 rounded-[3px] ${
-            variant === "done"
-              ? "bg-rose-700 text-white"
-              : variant === "doing"
-              ? "bg-black/80 text-white"
-              : "text-gray-400"
+            variant === 'done'
+              ? 'bg-rose-700 text-white'
+              : variant === 'doing'
+                ? 'bg-black/80 text-white'
+                : 'text-gray-400'
           }`}
           aria-hidden
         >
-          {variant === "done" ? (
+          {variant === 'done' ? (
             <CheckIcon />
-          ) : variant === "doing" ? (
+          ) : variant === 'doing' ? (
             <MinusIcon />
           ) : (
             <EmptyIcon />
           )}
         </span>
       </div>
-      <p className="mt-2 text-[12px] leading-5 text-gray-500">{task.description}</p>
+      <p className="mt-2 text-[12px] leading-5 text-gray-500">
+        {task.description}
+      </p>
     </div>
   );
 }
@@ -107,29 +121,56 @@ export default function TasksBoard() {
   // initial data mapped to your screenshot: done (left), doing (middle), todo (right) in RTL
   const [board, setBoard] = useState<BoardState>({
     done: [
-      { id: uid(), title: "مهمة 1", description: "وصف المهمة التي يجب إنجازها" },
-      { id: uid(), title: "مهمة 5", description: "وصف المهمة التي يجب إنجازها" },
+      {
+        id: uid(),
+        title: 'مهمة 1',
+        description: 'وصف المهمة التي يجب إنجازها',
+      },
+      {
+        id: uid(),
+        title: 'مهمة 5',
+        description: 'وصف المهمة التي يجب إنجازها',
+      },
     ],
     doing: [
-      { id: uid(), title: "مهمة 2", description: "وصف المهمة التي يجب إنجازها" },
-      { id: uid(), title: "مهمة 3", description: "وصف المهمة التي يجب إنجازها" },
+      {
+        id: uid(),
+        title: 'مهمة 2',
+        description: 'وصف المهمة التي يجب إنجازها',
+      },
+      {
+        id: uid(),
+        title: 'مهمة 3',
+        description: 'وصف المهمة التي يجب إنجازها',
+      },
     ],
     todo: [
-      { id: uid(), title: "مهمة 4", description: "وصف المهمة التي يجب إنجازها" },
-      { id: uid(), title: "مهمة 4", description: "وصف المهمة التي يجب إنجازها" },
+      {
+        id: uid(),
+        title: 'مهمة 4',
+        description: 'وصف المهمة التي يجب إنجازها',
+      },
+      {
+        id: uid(),
+        title: 'مهمة 4',
+        description: 'وصف المهمة التي يجب إنجازها',
+      },
     ],
   });
 
-  const [dragInfo, setDragInfo] = useState<{ id: string; from: ColumnKey } | null>(null);
+  const [dragInfo, setDragInfo] = useState<{
+    id: string;
+    from: ColumnKey;
+  } | null>(null);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, id: string) => {
     // find source column
-    let from: ColumnKey = "todo";
+    let from: ColumnKey = 'todo';
     (Object.keys(board) as ColumnKey[]).forEach((k) => {
       if (board[k].some((t) => t.id === id)) from = k;
     });
     setDragInfo({ id, from });
-    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.effectAllowed = 'move';
   };
 
   const handleDropTask = (to: ColumnKey) => {
@@ -158,17 +199,18 @@ export default function TasksBoard() {
         {
           id: uid(),
           title: `مهمة ${prev.todo.length + prev.doing.length + prev.done.length + 1}`,
-          description: "وصف المهمة الجديدة",
+          description: 'وصف المهمة الجديدة',
         },
       ],
     }));
 
-  
   return (
     <section dir="rtl" className="w-full mb-15">
       {/* Header row like the screenshot */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-right text-lg font-semibold text-gray-800">مهام المادة</h2>
+        <h2 className="text-right text-lg font-semibold text-gray-800">
+          مهام المادة
+        </h2>
 
         <div className="flex items-center gap-3">
           <button
@@ -189,21 +231,36 @@ export default function TasksBoard() {
         {/* TODO (right column in RTL) */}
         <Column column="todo" onDropTask={handleDropTask}>
           {board.todo.map((t) => (
-            <TaskCard key={t.id} task={t} variant="todo" onDragStart={handleDragStart} />
+            <TaskCard
+              key={t.id}
+              task={t}
+              variant="todo"
+              onDragStart={handleDragStart}
+            />
           ))}
         </Column>
 
         {/* DOING (middle) */}
         <Column column="doing" onDropTask={handleDropTask}>
           {board.doing.map((t) => (
-            <TaskCard key={t.id} task={t} variant="doing" onDragStart={handleDragStart} />
+            <TaskCard
+              key={t.id}
+              task={t}
+              variant="doing"
+              onDragStart={handleDragStart}
+            />
           ))}
         </Column>
 
         {/* DONE (left column in RTL) */}
         <Column column="done" onDropTask={handleDropTask}>
           {board.done.map((t) => (
-            <TaskCard key={t.id} task={t} variant="done" onDragStart={handleDragStart} />
+            <TaskCard
+              key={t.id}
+              task={t}
+              variant="done"
+              onDragStart={handleDragStart}
+            />
           ))}
         </Column>
       </div>
@@ -212,8 +269,6 @@ export default function TasksBoard() {
       <div className="pointer-events-none relative">
         <div className="absolute -top-24 right-0 w-64 h-24 bg-gradient-to-b from-black/5 to-transparent rounded-bl-[60px] blur-[2px]" />
       </div>
-
-      
     </section>
   );
 }
