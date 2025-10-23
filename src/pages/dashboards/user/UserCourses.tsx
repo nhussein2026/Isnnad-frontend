@@ -17,7 +17,7 @@ export default function UserCourses() {
         {courses.map((course: any) => (
           <Link
             key={course.id}
-            to={`/courses/${course.id}`} // Adjust the route as needed, e.g., to course details
+            to={`${course.id}`} // Adjust the route as needed, e.g., to course details
             className="block"
           >
             <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full hover:shadow-2xl hover:shadow-[#8D1B3D] hover:bg-gray-50 transition-all duration-300 cursor-pointer">
