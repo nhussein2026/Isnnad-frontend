@@ -26,8 +26,10 @@ export default function Login() {
         navigate('/manager/dashboard');
       } else if (role === 'user') {
         navigate('/user/dashboard');
+      } else if (role === 'Assistant') {
+        navigate('/assistant/dashboard');
       } else {
-        navigate('/dashboard'); // default for regular users
+        navigate('/dashboard');
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -39,9 +41,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white p-4 relative overflow-hidden">
+    <div className="h-screen flex items-center justify-center bg-white relative overflow-hidden">
       {/* Top-left SVG icon - Page level */}
-      <div className="absolute top-0 right-0 m-0 opacity-80">
+      <div className="absolute top-0 right-0 m-0 opacity-90 overflow-hidden">
         <svg
           width="238"
           height="240"
@@ -58,7 +60,7 @@ export default function Login() {
       </div>
 
       {/* Bottom-right SVG icon - Page level */}
-      <div className="absolute bottom-0 left-0 m-0 opacity-80">
+      <div className="absolute bottom-0 left-0 m-0 opacity-90 overflow-hidden">
         <svg
           width="238"
           height="240"
@@ -75,23 +77,19 @@ export default function Login() {
       </div>
 
       {/* Main form card */}
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md relative z-10">
+      <div className="bg-white rounded-2xl shadow-xl p-7 w-full max-w-md relative z-10">
         {/* Logo */}
         <div className="flex justify-center">
-          <img src={logo} alt="Logo" className="w-auto h-36" />
+          <img src={logo} alt="Logo" className="w-auto h-30" />
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-2">
+        <h1 className="text-3xl font-bold text-center text-gray-800 ">
           تسجيل الدخول
         </h1>
-        <p className="text-gray-600 text-center mb-8">
-          مرحبًا بعودتك! يرجى تسجيل الدخول إلى حسابك
-        </p>
-
         <form onSubmit={submit} className="space-y-5">
           {/* Email Input */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col gap-1">
             {/* Label */}
             <label className="text-right font-bold text-gray-800 text-sm sm:text-base">
               البريد الإلكتروني
@@ -108,7 +106,7 @@ export default function Login() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="
-                  w-full flex items-center justify-end gap-2 
+                  w-full flex items-center justify-end gap-1 
                   pr-12 pl-3 py-2 
                   border border-slate-300 bg-[#F3F3F3] rounded 
                   text-right placeholder-gray-400 text-gray-700 
@@ -119,7 +117,7 @@ export default function Login() {
           </div>
 
           {/* Password Input */}
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col gap-1">
             {/* Label */}
             <label
               htmlFor="password"
@@ -141,18 +139,18 @@ export default function Login() {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="
-            w-full pr-12 pl-3 py-2 
-            border border-slate-300 bg-[#F3F3F3] rounded-md 
-            text-right placeholder-gray-400 text-gray-700 
-            focus:outline-none focus:ring-2 focus:ring-slate-400
-          "
+                            w-full pr-12 pl-3 py-2 
+                            border border-slate-300 bg-[#F3F3F3] rounded-md 
+                            text-right placeholder-gray-400 text-gray-700 
+                            focus:outline-none focus:ring-2 focus:ring-slate-400
+                          "
               />
             </div>
 
             {/* Forget password link */}
             <a
               href="#"
-              className="text-xs sm:text-sm text-left text-blue-600 hover:underline"
+              className="text-xs sm:text-sm text-right text-blue-600 hover:underline"
             >
               هل نسيت كلمة المرور؟
             </a>
@@ -163,7 +161,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[var(--primary-color)] w-full text-white font-bold flex h-[57px] px-4 py-2 justify-center items-center gap-[10px] self-stretch rounded-[6px]"
+            className="bg-[var(--primary-color)] w-full text-white font-bold flex h-[57px] px-2 justify-center items-center self-stretch rounded-xl"
           >
             {loading ? '... جار تسجيل الدخول' : 'تسجيل الدخول'}
           </button>

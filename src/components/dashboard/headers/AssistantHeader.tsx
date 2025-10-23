@@ -1,18 +1,12 @@
 // components/dashboard/headers/AsistaantHeader.jsx
 import { useState } from 'react';
-import { Menu, Bell, Sun, Moon } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 
-interface AsistantHeaderProps {
+interface AssistantHeaderProps {
   toggleSidebar: () => void;
-  toggleDarkMode: () => void;
-  isDarkMode: boolean;
 }
 
-const AsistantHeader = ({
-  toggleSidebar,
-  toggleDarkMode,
-  isDarkMode,
-}: AsistantHeaderProps) => {
+const AssistantHeader = ({ toggleSidebar }: AssistantHeaderProps) => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   const notifications = [
@@ -51,12 +45,11 @@ const AsistantHeader = ({
 
         {/* Right side - Dark mode, Notifications and Profile */}
         <div className="flex items-center space-x-4 space-x-reverse">
-          <button
-            onClick={toggleDarkMode}
+          {/* <button
             className="p-2 rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+          </button> */}
 
           {/* Notification icon with dropdown */}
           <div className="relative">
@@ -130,4 +123,4 @@ const AsistantHeader = ({
   );
 };
 
-export default AsistantHeader;
+export default AssistantHeader;

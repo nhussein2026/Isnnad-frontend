@@ -144,10 +144,8 @@ export default function UserManagement() {
                           className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[#8D1B3D]"
                         >
                           <option value="user">User</option>
-                          <option value="student">Student</option>
                           <option value="admin">Admin</option>
                           <option value="manager">Manager</option>
-                          <option value="tutor">Tutor</option>
                           <option value="programmer">Programmer</option>
                           <option value="Assistant">Assistant</option>
                         </select>

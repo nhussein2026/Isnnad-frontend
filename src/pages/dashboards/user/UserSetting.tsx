@@ -1,28 +1,21 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import {
-  Mail,
-  Phone,
-  Lock,
-  CheckCircle,
-  XCircle,
-  Save,
-} from "lucide-react";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { Mail, Phone, Lock, CheckCircle, XCircle, Save } from 'lucide-react';
 
 const UserSettings = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
-  const [email, setEmail] = useState(user?.email || "");
-  const [phone, setPhone] = useState(user?.phone || "");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(user?.email || '');
+  const [phone, setPhone] = useState(user?.phone || '');
+  const [password, setPassword] = useState('');
   const [emailVerified, setEmailVerified] = useState(user?.isEmailVerified);
   const [phoneVerified, setPhoneVerified] = useState(user?.isPhoneVerified);
 
   const handleSave = () => {
     // TODO: ربط مع API لتحديث بيانات المستخدم
     console.log({ email, phone, password });
-    alert("تم حفظ الإعدادات بنجاح ✅");
+    alert('تم حفظ الإعدادات بنجاح ✅');
   };
 
   return (

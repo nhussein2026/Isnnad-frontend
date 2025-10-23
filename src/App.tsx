@@ -58,6 +58,7 @@ import TasksManagement from './pages/dashboards/admin/TasksManagement';
 import AdminProfile from './pages/dashboards/admin/AdminProfile';
 import MyTasks from './pages/dashboards/user/MyTasks';
 import UserSettings from './pages/dashboards/user/UserSetting';
+import AssistantHome from './pages/dashboards/assistant/AsistantHome';
 
 function App() {
   return (
@@ -166,11 +167,7 @@ function App() {
           }
         >
           <Route index element={<Navigate to="dashboard" replace />} />
-          {/* <Route path="dashboard" element={<AssistantHome />} />
-          <Route path="tickets" element={<SupportTickets />} />
-          <Route path="user-support" element={<UserSupport />} />
-          <Route path="knowledge" element={<Knowledge />} /> */}
-          {/* <Route path="settings" element={<SettingsPage />} /> */}
+          <Route path="dashboard" element={<AssistantHome />} />
         </Route>
 
         {/* Legacy Dashboard Redirect - for backward compatibility */}

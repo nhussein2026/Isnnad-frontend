@@ -1,39 +1,29 @@
 // layouts/dashboards/AssistantDashboardLayout.jsx
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import AdminSidebar from '../../components/dashboard/sidebars/AdminSidebar';
-import AdminHeader from '../../components/dashboard/headers/AdminHeader';
+import AssistantHeader from '../../components/dashboard/headers/AssistantHeader';
+import AssistantSidebar from '../../components/dashboard/sidebars/AssistantSidebar';
 
 const AssistantDashboardLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
-  };
-
   return (
-    <div className={`min-h-screen flex ${isDarkMode ? 'dark' : ''}`}>
+    <div className="min-h-screen flex">
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <AdminHeader
-          toggleSidebar={toggleSidebar}
-          toggleDarkMode={toggleDarkMode}
-          isDarkMode={isDarkMode}
-        />
+        <AssistantHeader toggleSidebar={toggleSidebar} />
 
-        <main className="flex-1 p-6 bg-gray-50 dark:bg-gray-900 overflow-auto">
+        <main className="flex-1 p-6 bg-gray-50 overflow-auto">
           <Outlet />
         </main>
       </div>
 
       {/* Sidebar */}
-      <AdminSidebar
+      <AssistantSidebar
         isCollapsed={isSidebarCollapsed}
         toggleSidebar={toggleSidebar}
       />

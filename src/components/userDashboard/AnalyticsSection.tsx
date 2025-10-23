@@ -29,14 +29,13 @@ const CircularProgressCard: React.FC<CircularProgressCardProps> = ({
     lg: 'w-40 h-40',
   };
 
-const colorClasses = {
-  blue: { text: 'text-[#1B8D6B]', stroke: '#1B8D6B' },     // قيد التنفيذ
-  green: { text: 'text-[#8D1B3D]', stroke: '#8D1B3D' },    // تم الإنجاز
-  purple: { text: 'text-[#1B8D6B]', stroke: '#1B8D6B' },   // إجمالي المهام
-  red: { text: 'text-[#E2D2D6]', stroke: '#E2D2D6' },      // متأخر
-  yellow: { text: 'text-yellow-600', stroke: 'yellow' },  // optional / fallback
-};
-
+  const colorClasses = {
+    blue: { text: 'text-[#1B8D6B]', stroke: '#1B8D6B' }, // قيد التنفيذ
+    green: { text: 'text-[#8D1B3D]', stroke: '#8D1B3D' }, // تم الإنجاز
+    purple: { text: 'text-[#1B8D6B]', stroke: '#1B8D6B' }, // إجمالي المهام
+    red: { text: 'text-[#E2D2D6]', stroke: '#E2D2D6' }, // متأخر
+    yellow: { text: 'text-yellow-600', stroke: 'yellow' }, // optional / fallback
+  };
 
   const displayValue =
     type === 'percentage' ? `${Math.round(percentage)}%` : value.toString();

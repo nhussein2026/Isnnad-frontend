@@ -6,8 +6,6 @@ import { RootState } from '@/types/user';
 
 interface AdminHeaderProps {
   toggleSidebar: () => void;
-  toggleDarkMode: () => void;
-  isDarkMode: boolean;
 }
 const AdminHeader = ({ toggleSidebar }: AdminHeaderProps) => {
   const user = useSelector((state: RootState) => state.auth.user);

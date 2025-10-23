@@ -11,15 +11,7 @@ export interface IUser {
   referralCode?: string;
   referredBy?: string;
   courses: ICourse[];
-  role:
-    | 'student'
-    | 'admin'
-    | 'admin'
-    | 'user'
-    | 'manager'
-    | 'tutor'
-    | 'programmer'
-    | 'Assistant';
+  role: 'admin' | 'admin' | 'user' | 'manager' | 'programmer' | 'Assistant';
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   createdAt?: Date;
