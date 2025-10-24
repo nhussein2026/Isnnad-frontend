@@ -24,6 +24,7 @@ import Analytics from './pages/dashboards/admin/Analytics';
 import UserHome from './pages/dashboards/user/UserHome';
 import UserProfile from './pages/dashboards/user/UserProfile';
 import UserCourses from './pages/dashboards/user/UserCourses';
+import UserCourse from './pages/dashboards/user/UserCourse';
 import UserCart from './pages/dashboards/user/UserCart';
 
 // Manager Dashboard Pages
@@ -111,6 +112,7 @@ function App() {
           <Route path="dashboard" element={<UserHome />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="courses" element={<UserCourses />} />
+          <Route path="courses/:CourseId" element={<UserCourse />} />
           <Route path="cart" element={<UserCart />} />
           <Route path="new-task" element={<UserTask />} />
           <Route path="my-tasks" element={<MyTasks />} />
