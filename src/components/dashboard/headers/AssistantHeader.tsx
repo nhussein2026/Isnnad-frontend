@@ -31,13 +31,13 @@ const AssistantHeader = ({ toggleSidebar }: AssistantHeaderProps) => {
   ];
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-md py-4 px-6">
+    <header className="bg-white  shadow-md py-4 px-6">
       <div className="flex items-center justify-between">
         {/* Left side - Menu button and Search */}
         <div className="flex items-center space-x-4 space-x-reverse">
           <button
             onClick={toggleSidebar}
-            className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            className="p-2 rounded-md text-gray-700  hover:bg-gray-100  transition-colors duration-200"
           >
             <Menu size={24} />
           </button>

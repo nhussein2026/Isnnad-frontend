@@ -44,7 +44,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
     timeToComplete: initialData?.timeToComplete || 60,
     attachments: initialData?.attachments ?? [],
     additionalInfo: initialData?.additionalInfo || '',
-    status: initialData?.status || 'قيد الانتظار', // Added default status
+    status: initialData?.status || 'جديد', // Added default status
   });
 
   // const [newAttachment, setNewAttachment] = useState('');

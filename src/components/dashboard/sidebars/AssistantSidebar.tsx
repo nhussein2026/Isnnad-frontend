@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import {
   Home,
-  Users,
   Settings,
-  CreditCard,
   FileText,
   LogOut,
   ChevronRight,
@@ -62,20 +60,6 @@ const AssistantSidebar = ({
       name: 'لوحة التحكم',
       icon: Home,
       href: '/assistant/dashboard',
-      action: null,
-    },
-    {
-      id: 2,
-      name: 'المستخدمين',
-      icon: Users,
-      href: '/assistant/users',
-      action: null,
-    },
-    {
-      id: 4,
-      name: 'المواد',
-      icon: CreditCard,
-      href: '/assistant/courses',
       action: null,
     },
     {

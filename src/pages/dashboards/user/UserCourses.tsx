@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 export default function UserCourses() {
   const dispatch = useDispatch<AppDispatch>();
   const { courses } = useSelector((state: RootState) => state.courses);
+  console.log(' Courses:', courses);
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
@@ -16,7 +17,7 @@ export default function UserCourses() {
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {courses.map((course: any) => (
           <Link
-            key={course.id}
+            key={course._id}
             to={`${course.id}`} // Adjust the route as needed, e.g., to course details
             className="block"
           >

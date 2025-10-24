@@ -11,7 +11,7 @@ export interface ITask {
   type?: 'واجب منزلي' | 'مشروع' | 'اختبار' | 'أخرى';
   description?: string;
   timeToComplete: number;
-  status: 'قيد التنفيذ' | 'تم الإنجاز' | 'قيد الانتظار' | 'متأخر';
+  status: 'قيد التنفيذ' | 'تم الإنجاز' | 'متأخر' | 'جديد' | 'مأخوذ';
   attachments?: string[];
   additionalInfo?: string;
   createdBy: string | IUser;
